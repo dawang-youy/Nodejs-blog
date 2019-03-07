@@ -1,0 +1,181 @@
+.layui-card.grid-demo
+  h2.layui-card-header
+    span(style="padding:6px 4px;background:#1890ff;color:#fff;border-radius:4px;") 博客简介
+  .layui-card-body
+    p 这是一个绚丽多彩的时代，而你我正是这多彩世界的终极体验官。欢迎来到大王博客：dawang.xin ,专注于前端开发、关注用户体验、
+      |分享个人经验，与喜欢提高视觉体验的朋友进行交流学习,希望做出更好的博客，期待您的参与！
+      a.underline(href="/about",target="_blank") 了解更多。。。
+.grid-demo(style="margin-bottom:20px;text-align:center;")
+  h3(style="width:100%;height:10px;margin-bottom:2px;background:#fff;")
+  .site-demo-laydate
+    .layui-inline#test-n1
+.layui-card.grid-demo
+  h2.layui-card-header 
+    i(title="更新").layui-icon.layui-icon-release &nbsp
+    |最近更新
+  .layui-card-body
+    ul.right-new-list
+      each item in newList
+        li
+          - var src = item.imgSrc ? item.imgSrc : "/article/default/1.jpg"
+          a.img(href=`/article/${item._id}` target="_blank")
+            img(src=`${src}`, alt=`${item.title}`)
+          a.title(href=`/article/${item._id}` target="_blank")= item.title
+          span= item.created.toLocaleString()
+.grid-demo.layui-card
+  h2.layui-card-header 
+    i(title="排行").layui-icon.layui-icon-spread-left &nbsp
+    |热度排行
+  .layui-card-body
+    div.rank-list
+      a(href=`/article/${hotList[0]._id}` target="_blank")
+        - var src = (hotList[0].imgSrc) ? hotList[0].imgSrc : "/article/default/2.jpg"
+        img(src=`${src}`, alt=`${hotList[0].title}`)
+        span= hotList[0].title
+    ul.right-hot-list
+      - for(i=1;i<8;i++)
+        li.ellipsis
+          span= i
+          a(href=`/article/${hotList[i-1]._id}` target="_blank")= hotList[i-1].title
+.grid-demo.layui-card
+    h2.layui-card-header 
+      i(title="随机").layui-icon.layui-icon-loading &nbsp
+      |随机文章
+    .layui-card-body
+      div.rank-list
+        a(href=`/article/${randomList[0]._id}` target="_blank")
+          - var src = (randomList[0].imgSrc) ? randomList[0].imgSrc : "/article/default/2.jpg"
+          img(src=`${src}`, alt=`${randomList[0].title}`)
+          span= randomList[0].title
+      ul.right-hot-list
+        - for(i=1;i<11;i++)
+          li.ellipsis
+            span= i
+            a(href=`/article/${randomList[i-1]._id}` target="_blank")= randomList[i-1].title
+.grid-demo.layui-card
+    h2.layui-card-header 
+      i(title="喜欢").layui-icon.layui-icon-star &nbsp
+      |猜你喜欢
+    .layui-card-body
+      div.rank-list
+        a(href=`/article/${loveList[0]._id}` target="_blank")
+          - var src = (loveList[0].imgSrc) ? loveList[0].imgSrc : "/article/default/2.jpg"
+          img(src=`${src}`, alt=`${loveList[0].title}`)
+          span= loveList[0].title
+      ul.right-hot-list
+        - for(i=1;i<8;i++)
+          li.ellipsis
+            span= i
+            a(href=`/article/${loveList[i-1]._id}` target="_blank")= loveList[i-1].title
+.grid-demo.layui-card#blog-message
+  h2.layui-card-header 
+    i(title="评论").layui-icon.layui-icon-dialogue &nbsp
+    |精彩评论
+  .layui-card-body
+    ul.right-comment-list
+      each item in commentList
+        li
+          - var src = item.from.avatar ? item.from.avatar : "/article/default/1.jpg"
+          img(src=`${src}`, alt=`${item.from.username}`)
+          span.title.ellipsis= item.from.username
+          span.con.ellipsis!= item.content
+          a.ellipsis(href=item.article ? "/article/"+item.article._id : "/find" target="_blank") 评：
+            = item.article ? item.article.title : "站点留言"
+.grid-demo.layui-card#blog-message
+  h2.layui-card-header 
+    i(title="信息").layui-icon.layui-icon-chart-screen &nbsp
+    |站点信息
+  .layui-card-body
+    ul
+      li
+        span 文章总数 ：&nbsp 
+        span=webNum.articleNum ? webNum.articleNum : "NaN"
+          |&nbsp篇
+      li
+        span 分类数目 ：&nbsp 
+        span=webNum.tipsNum ? webNum.tipsNum : "NaN"
+          |&nbsp个
+      li
+        span 评论总数 ：&nbsp 
+        span=webNum.commentNum ? webNum.commentNum : "NaN"
+          |&nbsp条
+      li
+        span 注册用户 ：&nbsp 
+        span=webNum.userNum ? webNum.userNum : "NaN"
+          |&nbsp名
+      li
+        span 标签总数 ：&nbsp 
+        span=webNum.tagsNum ? webNum.tagsNum : "NaN"
+          |&nbsp个
+      li
+        span 建站时长 ：&nbsp
+        span=webNum.duration ? webNum.duration : "NaN"
+          |&nbsp天
+      li
+        span 访问总数 ：&nbsp 
+        span=webNum.visitNum ? webNum.visitNum : "NaN"
+          |&nbsp次
+      li
+        span 最近更新 ：&nbsp 
+        span=webNum.updateTime ? webNum.updateTime : "NaN"
+.layui-card.grid-demo
+  h2.layui-card-header 
+    i(title="链接").layui-icon.layui-icon-link &nbsp
+    |友情链接
+  .layui-card-body 
+    p
+      span.layui-badge-dot.layui-bg-cyan 
+      |
+      |
+      a(href="https://www.qdskill.com/nav" title="web前端导航" target="_blank") web前端导航
+    p
+      span.layui-badge-dot.layui-bg-cyan 
+      |
+      |
+      a(href="https://www.liaoxuefeng.com/" title="廖雪峰的官方网站" target="_blank") 廖雪峰的官方网站
+    p
+      span.layui-badge-dot.layui-bg-cyan 
+      |
+      |
+      a(href="https://www.zhangxinxu.com/" title="张鑫旭的个人博客" target="_blank") 张鑫旭的个人博客
+    p
+      span.layui-badge-dot.layui-bg-cyan 
+      |
+      |
+      a(href="https://juejin.im/post/5befeb5051882511a8527dbe" title="掘金" target="_blank") 一年半经验，百度、有赞、阿里面试总结
+    p
+      span.layui-badge-dot.layui-bg-cyan 
+      |
+      |
+      a(href="https://jspang.com/archives/" title="技术胖" target="_blank") 技术胖
+    p
+      span.layui-badge-dot.layui-bg-cyan 
+      |
+      |
+      a(href="https://www.5xiaobo.com" title="个人博客" target="_blank") 吴晓波个人博客
+    p
+      span.layui-badge-dot.layui-bg-cyan 
+      |
+      |
+      a(href="http://www.runoob.com/w3cnote/front-end-developer-questions-and-answers.html" title="前端开发面试题" target="_blank") 前端开发面试题
+    p
+      span.layui-badge-dot.layui-bg-cyan 
+      |
+      |
+      a(href="https://stackoverflow.com/" title="stackoverflow" target="_blank") stackoverflow官网
+    p
+      span.layui-badge-dot.layui-bg-cyan 
+      |
+      |
+      a(href="https://juejin.im/post/5b44a485e51d4519945fb6b7" title="前端面试的面试经验" target="_blank") 前端面试的面试经验
+    p
+      span.layui-badge-dot.layui-bg-cyan 
+      |
+      |
+      a(href="https://www.jianshu.com/u/948da055a416" title="简书王南北" target="_blank") 简书王南北
+    p
+      span.layui-badge-dot.layui-bg-cyan 
+      |
+      |
+      a(href="https://www.qdskill.com/" title="web前端技能" target="_blank") web前端技能
+    

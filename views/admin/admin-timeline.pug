@@ -1,0 +1,126 @@
+extends ./admin
+block css
+  style.
+    #main .layui-container {
+      margin:50px 0;
+      border-radius: 2px;
+      background-color: #fff;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
+      border: 1px solid #fff;
+    }
+    .article-add {
+      padding-top: 7.5px;
+    }
+    .layui-form .layui-form-label{
+      width: 110px;
+      padding: 8px 15px;
+      height: 38px;
+      line-height: 20px;
+      border: 1px solid #e6e6e6;
+      border-radius: 2px 0 0 2px;
+      text-align: center;
+      background-color: #FBFBFB;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      box-sizing: border-box;
+    }
+    .layui-tab-title{
+      margin-bottom: 20px;
+    }
+block main
+  table(lay-data="{width: 892, url:'/timeline/get',  page:{theme:'#f90'},id:'idTest'}", lay-filter="demo").layui-table
+    thead
+      tr
+        th(lay-data="{field:'id', align:'center',templet: function (res){\
+                                                                            var id = res.id ? res.id : null;\
+                                                                            return id;}}") id
+        th(lay-data="{field:'title', align:'center'}") 网站公告
+        th(lay-data="{field:'notes', align:'center'}") 记事
+        th(lay-data="{field:'intro', align:'center'}") 博客简介
+        th(lay-data="{field:'created', align:'center', templet: res => (new Date(res.created)).toLocaleString()}") 创建时间
+        th(lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}") 操作
+  script(type="text/html")#barDemo
+    a(lay-event="del").layui-btn.layui-btn-danger.layui-btn-xs 删除
+  #main
+    .layui-container
+      .article-add.layui-form
+        .layui-tab.layui-tab-brief(lay-filter="user")
+          ul.layui-tab-title
+            li.layui-this 时间线记事编辑
+          #editing.layui-form.layui-form-content
+            .layui-tab-item.layui-show
+              form(action="/article", method="POST")
+                .layui-row.layui-col-space15.layui-form-item
+                  .layui-col-md6
+                    label(for="L_id").layui-form-label id
+                    .layui-input-block
+                      input(type="text", name="id" required="", lay-verify="required" autocomplete="off")#L_id.layui-input
+                    label(for="L_title").layui-form-label 网站公告
+                    .layui-input-block
+                      input(type="text", name="title" required="", lay-verify="required" autocomplete="off")#L_title.layui-input
+                  .layui-col-md6
+                    label(for="L_notes").layui-form-label 记事
+                    .layui-input-block
+                      input(type="text", name="notes" required="", lay-verify="required" autocomplete="off")#L_notes.layui-input
+                    label(for="L_intro").layui-form-label 博客简介
+                    .layui-input-block
+                      input(type="text", name="intro" required="", lay-verify="required" autocomplete="off")#L_intro.layui-input
+                input(type="reset").layui-btn
+                
+          .layui-form-item
+            button(lay-filter="send" lay-submit).layui-btn 立即保存
+  script.
+    layui.use(['form', "table","element"], function() {
+      const form = layui.form;
+      const $ = layui.$      
+      const table = layui.table
+      const layer = layui.layer
+      
+      table.on("tool(demo)", (obj) => {
+        const data = obj.data
+        const _id = data._id
+        //console.log(data)
+        if(obj.event !== "del") return
+
+        layer.confirm("确认删除？", () => {
+          $.ajax({
+            method: "delete",
+            url: "/timeline/del/" + _id,
+            data: {
+              _id
+            },
+            success(res){
+              if(res.state){
+                layer.msg(res.message, {
+                  anim: 1,
+                  time: 800
+                }, () => location.reload())
+              }else{
+                console.error(res.message)
+              }
+            }
+          })
+        })
+      })
+      form.on("submit(send)", (res) => {
+        const { id,title,intro,notes } = res.field;
+        console.log(res.field);
+        const data = {
+          id,
+          title,
+          intro,
+          notes
+        }
+        
+        $.post("/timeline/upload", data, (msg) => {
+          if(msg.status){
+            layer.alert('保存成功', (res) => {
+              location.href = "/admin/timeline"
+            })
+          }else{
+            layer.alert(`保存失败，失败信息：${msg.msg}`)
+          }
+        })
+      })
+    });

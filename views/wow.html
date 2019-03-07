@@ -1,0 +1,243 @@
+<!DOCTYPE HTML>
+<html onselectstart='return false'>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+		<meta name="keywords" content="dawang" />
+		<meta name="description" content="" />
+		<title>wow</title>
+		<style type="text/css">
+			*{ margin:0; padding:0;}
+			html,body{ background:#000; width:100%; height:100%; overflow:hidden}
+			#wrap{ 
+				width:133px; height:200px; margin:25% auto 0;
+				position:relative;
+				top:-100px;
+				transform-style:preserve-3d;
+				transform:perspective(1000px) rotateX(-10deg) rotateY(0deg);
+			}
+			
+			#wrap ul li{
+				list-style:none;
+				width:120px;
+				height:180px;
+				position:absolute;
+				top:0;left:0;
+				border-radius:3px;
+				box-shadow:0 0 10px #fff;
+				background:no-repeat 0/100% 100%;
+				opacity: 0;
+				transform:rotateY(0deg) translateZ(0px);
+			}
+
+			#wrap p{ 
+				width:1200px; height:1200px; position:absolute; border-radius:100%;
+				left:50%; top:150%; margin-left:-600px; margin-top:-600px;
+				background:-webkit-radial-gradient(center center,600px 600px,rgba(50,50,50,1),rgba(0,0,0,0));
+				transform:rotateX(90deg);
+			}
+			button{
+				position:fixed;
+				bottom: 10%;
+				left: 60px; 
+				width: 40px;
+			}
+			#tiled{
+				left: 110px;
+			}
+			#spiral{
+				left: 160px;
+			}
+			#grid{
+				left: 210px;
+			}
+		</style>
+		<script src="/works/3dpicshow/js/jquery-1.11.3.min.js"></script>
+	</head>
+	<body>
+		<div id="wrap">
+			<ul>
+				<li style="background-image:url(/works/3dpicshow/img/1.jpg);"></li>
+				<li style="background-image:url(/works/3dpicshow/img/12.jpg);"></li>
+				<li style="background-image:url(/works/3dpicshow/img/2.jpg);"></li>
+				<li style="background-image:url(/works/3dpicshow/img/3.jpg);"></li>
+				<li style="background-image:url(/works/3dpicshow/img/4.jpg);"></li>
+				<li style="background-image:url(/works/3dpicshow/img/5.jpg);"></li>
+				<li style="background-image:url(/works/3dpicshow/img/6.jpg);"></li>
+				<li style="background-image:url(/works/3dpicshow/img/7.jpg);"></li>
+				<li style="background-image:url(/works/3dpicshow/img/8.jpg);"></li>
+				<li style="background-image:url(/works/3dpicshow/img/9.jpg);"></li>
+				<li style="background-image:url(/works/3dpicshow/img/10.jpg);"></li>				
+				<li style="background-image:url(/works/3dpicshow/img/11.jpg);opacity: 1"></li>
+			</ul>
+			<p></p>
+		</div>
+		<button id="circle">circle</button>
+		<button id="tiled">tiled</button>
+		<button id="spiral">spiral</button>
+		<button id="grid">grid</button>
+		<script>
+			$(function(){
+				var oWrap = document.getElementById('wrap');
+				var cBtn = document.getElementById('circle');
+				var tBtn = document.getElementById('tiled');
+				var sBtn = document.getElementById('spiral');
+				var gBtn = document.getElementById('grid');
+				var oL = $('#wrap ul li').size();
+				var Deg = 360/oL;
+				var xDeg = 0,yDeg = -10,xs = 0,ys = 0,p=null;
+
+				function circle(){
+					$('#wrap').css({
+						'position':'relative',
+						'top':'-100px',
+						'width':'133px',
+						'height':'200px',
+						'margin':'25% auto 0',
+						'transform':'perspective(1000px) rotateX(-15deg) rotateY(0deg)'
+					});
+					for (var i=oL-1;i>=0;i--){
+						$('#wrap ul li').eq(i).css({
+							'float':'none',
+							'position':'absolute',
+							'top':'0',
+							'left':'0',
+							'width':'120px',
+							'height':'180px',
+							'margin':'0',
+							'-webkit-box-reflect':'below 10px -webkit-linear-gradient(top,rgba(0,0,0,0) 40%,rgba(0,0,0,.5) 100%)',
+							'opacity':'1',
+							'transition':"1s "+(oL-i)*0.35+"s transform,0.9s "+(oL-i)*0.25+"s opacity",
+							'transform':'rotateY('+Deg*i+'deg) translateZ(350px)'
+						});
+					}
+				}
+				// draw();
+				cBtn.onclick = circle;
+
+				function tiled(){
+					$('#wrap').css({
+						'position':'static',
+						'width':'70%',
+						'height':'100%',
+						'margin':'100px auto 0',
+						'transform':'perspective(800px) rotateX(0deg) rotateY(0deg)'
+					});
+					$('#wrap ul').css({
+						'width':'100%',
+						'height':'100%',
+					});
+					
+					$('#wrap ul li').css({
+						'position':'static',
+						'float':'left',
+						'width':'16%',
+						'height':'20%',
+						'margin':'1% 2%',
+						'-webkit-box-reflect':'below 10px -webkit-linear-gradient(top,rgba(0,0,0,0) 40%,rgba(0,0,0,.5) 100%)',
+						'opacity':'1',
+						'transition':"2s transform,0.5s opacity",
+						'transform':'rotateY(0deg) translateZ(0px)'
+					});
+					$('#wrap ul li').eq(0).css({
+						'margin-left':'12%'
+					})	
+					$('#wrap ul li').eq(1).css({
+						'margin-left':'43%'
+					})				
+				}
+				tBtn.onclick = tiled;
+
+				function spiral (){
+					$('#wrap').css({
+						'position':'relative',
+						'top':'100px',
+						'width':'133px',
+						'height':'200px',
+						'margin':'25% auto 0',
+						'transform':'perspective(1000px) rotateX(15deg) rotateY(0deg)'
+					});
+					for (var i=0;i<oL;i++){
+						$('#wrap ul li').eq(i).css({
+							'float':'none',
+							'position':'absolute',
+							'top':'0',
+							'left':'0',
+							'width':'120px',
+							'height':'180px',
+							'margin':'0',
+							'-webkit-box-reflect':'none',
+							'opacity':'1',
+							'transition':"1s "+(i+1)*0.35+"s transform,0.9s "+(i+1)*0.25+"s opacity",
+							'transform':'rotateY('+Deg*1.5*i+'deg) translateY('+-i*30+'px) translateZ(200px)'
+						});
+					}
+				};
+
+				sBtn.onclick = spiral;
+
+				function grid(){
+					$('#wrap').css({
+						'position':'static',
+						'width':'80%',
+						'height':'100%',
+						'margin':'300px auto 0',
+						'transform':'perspective(800px) rotateX(0deg) rotateY(0deg)'
+					});
+					$('#wrap ul').css({
+						'width':'40%',
+						'height':'44%',
+						'margin':'0 auto',
+					});
+					
+					$('#wrap ul li').css({
+						'position':'static',
+						'float':'left',
+						'width':'44%',
+						'height':'44%',
+						'margin':'3% 3%',
+						'-webkit-box-reflect':'below 10px -webkit-linear-gradient(top,rgba(0,0,0,0) 40%,rgba(0,0,0,.5) 100%)',
+						'opacity':'1',
+						'transition':"2s transform,0.5s opacity",
+						'transform':'rotateY(0deg) translateZ(200px)'
+					});
+					for (var i = 4; i < 8; i++) {
+						$('#wrap ul li').eq(i).css({
+							'transform':'rotateY(0deg) translateY(-250%) translateZ(0px)'
+						});
+					}
+					for (var i = 8; i < 12; i++) {
+						$('#wrap ul li').eq(i).css({
+							'transform':'rotateY(0deg) translateY(-500%) translateZ(-200px)'
+						});
+					}			
+				};
+				gBtn.onclick = grid;
+				$(document).mousedown(function(e){
+					clearInterval(p);
+					var x1 = e.clientX;
+					var y1 = e.clientY;
+					$(this).bind('mousemove',function(e){
+						xs = e.clientX - x1;
+						ys = e.clientY - y1;
+						x1 = e.clientX;
+						y1 = e.clientY;
+						xDeg += xs*0.3;
+						yDeg -= ys*0.1;
+						$('#wrap').css('transform',"perspective(800px) rotateX("+yDeg+"deg) rotateY("+xDeg+"deg)");
+					});
+				}).mouseup(function(){
+					$(this).unbind('mousemove');
+					p = setInterval(function(){
+						if(Math.abs(xs)<0.5&&Math.abs(ys)<0.5){clearInterval(p)};
+						xs = xs*0.95;
+						ys = ys*0.95
+						xDeg += xs*0.3;
+						yDeg -= ys*0.1;
+						$('#wrap').css('transform',"perspective(800px) rotateX("+yDeg+"deg) rotateY("+xDeg+"deg)");
+					},30);
+				});
+
+			});
+		</script>
+	</body>
+</html>

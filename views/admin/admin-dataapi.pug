@@ -1,0 +1,100 @@
+extends ./admin
+block css
+  style.
+    #main .layui-container {
+      margin-bottom: 15px;
+      margin-top: 76px;
+      border-radius: 2px;
+      background-color: #fff;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
+      border: 1px solid #fff;
+
+    }
+    .article-add {
+      padding-top: 7.5px;
+    }
+    .layui-form .layui-form-label{
+      width: 110px;
+      padding: 8px 15px;
+      height: 38px;
+      line-height: 20px;
+      border: 1px solid #e6e6e6;
+      border-radius: 2px 0 0 2px;
+      text-align: center;
+      background-color: #FBFBFB;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      box-sizing: border-box;
+    }
+    .layui-tab-title{
+      margin-bottom: 20px;
+    }
+block main
+  #main
+    .layui-container
+      .article-add.layui-form
+        .layui-tab.layui-tab-brief(lay-filter="user")
+          ul.layui-tab-title
+            li.layui-this 数据编辑
+          #editing.layui-form.layui-form-content
+            .layui-tab-item.layui-show
+              form(action="/article", method="POST")
+                .layui-row.layui-col-space15.layui-form-item
+                  .layui-col-md6
+                    label(for="L_tips").layui-form-label tips
+                    .layui-input-block
+                      input(type="text", name="tips" required="", lay-verify="required" autocomplete="off")#L_tips.layui-input
+                    label(for="L_des").layui-form-label 简介
+                    .layui-input-block
+                      input(type="text", name="des" required="", lay-verify="required" autocomplete="off")#L_des.layui-input
+                  .layui-col-md6
+                    label(for="L_title").layui-form-label 标题
+                    .layui-input-block
+                      input(type="text", name="title" required="", lay-verify="required" autocomplete="off")#L_title.layui-input
+                    label(for="L_content").layui-form-label 数据
+                    .layui-input-block
+                      input(type="text", name="content" required="", lay-verify="required" autocomplete="off")#L_content.layui-input
+                input(type="reset").layui-btn
+                .layui-form-item.layui-form-text
+                  textarea(style="display: none;")#article-content
+          .layui-form-item
+            button(lay-filter="send" lay-submit).layui-btn 立即保存
+  script.
+    layui.use(['form', 'layedit', "element"], function() {
+      const form = layui.form;
+      const layedit = layui.layedit;
+      const $ = layui.$
+      layedit.set({
+        uploadImage: {
+          url: '/upload/images' //接口url
+          ,type: 'post' //默认post
+        }
+      });
+
+      const index = layedit.build('article-content'); //建立编辑器
+      
+      form.on("submit(send)", (res) => {
+        const { tips,des,title,content } = res.field;
+        console.log(res.field);
+        //if(layedit.getText(index).trim().length === 0)return layer.alert("请输入内容");
+        //let content = res.field.content.replace(/\t/g,'')
+        console.log(content)
+        const data = {
+          tips,
+          des,
+          title,
+          content:content.replace(/[\t\\]/gm,'')
+        }
+        
+        $.post("/dataapi/upload", data, (msg) => {
+          if(msg.status){
+            layer.alert('保存成功', (res) => {
+              location.href = "/admin/dataapi"
+            })
+          }else{
+            layer.alert(`保存失败，失败信息：${msg.msg}`)
+          }
+        })
+      })
+    });

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="dawang">
+    <meta name="keywords" content="3d图片">
+    <title>3D图展示</title>
+    <style>
+        *{margin:0;padding:0;}
+        li{list-style:none;}
+        a{text-decoration: none;}
+        html,body{
+            width: 100%;
+            height:100%;
+        }
+        #table{
+            position: fixed;
+            top: 100px;
+            left:20px;
+            z-index: 3;
+            background-color: #aaa;
+            color: #fff;
+        }
+        #table li{
+            height: 30px;
+            /*margin:4px 0;*/
+            padding: 4px 8px;
+            border: 1px solid #666;
+            line-height: 30px;
+        }
+        #table li:hover{
+            background-color: #f60;
+            color: #333;
+            cursor: pointer;
+        }
+        .pic{
+            position: absolute;
+            transition: 1s ease-in-out;
+        }
+        #box{
+            width: 100%;
+            height: 850px;
+            background: url('/works/3dpicshow/images/bg1.jpg') no-repeat center/cover;
+        }
+        #roll{
+            width: 100%;
+            height: 800px;
+            opacity: 0;
+        }
+        #roll iframe{
+            width: 100%;
+            height: 100%;
+        }
+        #wrap{
+            position: relative;
+            width:404px;
+            height:204px;
+            margin: 100px auto 0;
+            perspective: 2000px;
+            transform-style: preserve-3d;
+            transform-origin: center;
+        }
+        #wrap ul{
+            position: relative;
+            width:400px;
+            height:200px;
+            border: 2px solid #000;
+            background: url('/works/3dpicshow/images/bg2.jpg') no-repeat center/100%;
+            transform:translateZ(300px);
+            transform-style: preserve-3d;
+            transform-origin:center;
+            transition: 1s;
+        }
+        #wrap ul li{
+            position: absolute;
+            left: 100px;
+            top:50px;
+            width: 200px;
+            height: 96px;
+            border: 2px solid #000;
+            transform-style: preserve-3d;
+            transform-origin:center;
+        }
+        #wrap ul li img{
+            width: 100%;
+            height: 100%;
+        }
+        .btn{
+            width: 400px;
+            margin:40px auto 0;
+            text-align: center;
+        }
+        .control{
+            width: 70px;
+            margin:10px;
+        }
+        button{
+            width: 60px;
+            height: 30px;
+            margin-right: 30px;
+        }
+        #wow{
+            z-index: 2;
+            width: 100%;
+            height: 850px;
+            opacity: 0;
+        }
+        #wow iframe{
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <ul id="table">
+        <li>3D相册</li>
+        <li>NBA球队</li>
+        <li>魔兽世界</li>
+    </ul>
+    <div id="roll" class="pic">
+        <iframe src="./3D.html" frameborder="0"></iframe>
+    </div>
+    <div id="box" class="pic">
+        <p>点击图片开始,点击轮播图片更换背景</p>
+        <div id="wrap">
+            <ul>
+
+            </ul>
+        </div>
+        <div class="btn">
+            <button>上一个</button>
+            <button>下一个</button>
+        </div>
+        <div class="control">
+            <button>向上转</button>
+            <button>向下转</button>
+            <button>顺时针</button>
+            <button>逆时针</button>
+        </div>
+    </div>
+    <div id="wow" class="pic">
+        <iframe src="wow.html" frameborder="0"></iframe>
+    </div>
+    <script>
+        var oTab = document.querySelectorAll('#table li'),
+            oPic = document.querySelectorAll('.pic'),
+            oBox = document.getElementById('box'),
+            oWrap = document.getElementById('wrap'),
+            oUl = document.getElementsByTagName('ul')[1],
+            oBtn = document.getElementsByTagName('button'),
+            num = 0,
+            degX = 0,
+            degZ = 0,
+            _num = 0,
+            oldIndex = 2;
+        for(var i=0;i<oTab.length;i++){
+            oTab[i].index = i
+            oTab[i].onclick = function(){
+                oPic[oldIndex].style.opacity = 0;
+                oPic[oldIndex].style.zIndex = 1;
+                oPic[this.index].style.zIndex = 2;
+                oPic[this.index].style.opacity = 1;
+                oldIndex = this.index;
+            }
+        }
+        oUl.onclick = function(){
+            this.innerHTML = ""
+            show()
+            var oLi = oUl.getElementsByTagName('li')
+            for(let i=0;i<16;i++){
+                oLi[i].onmouseover = function (){
+                    this.style.transform = `rotateY(${i*22.5+num}deg) translateZ(600px) scale3d(1.4,1.4,1.4)`
+                    oLi[i].onclick = function (){
+                        oUl.style.background = `url('/works/3dpicshow/images/${i}.jpg') no-repeat center/cover`
+                        _num = i
+                    }
+                    //console.log(num)
+                }
+                oLi[i].onmouseout = function (){
+                    this.style.transform = `rotateY(${i*22.5+num}deg) translateZ(600px) scale3d(1,1,1)`                   
+                }               
+            }
+            function show(){
+                for(let j=0;j<16;j++){
+                    oUl.innerHTML += `<li><img src="/works/3dpicshow/images/${j}.jpg"></li>`
+                    var oLi = oUl.getElementsByTagName('li')
+                    oLi[j].style.transform = `rotateY(${j*22.5}deg) translateZ(600px)` 
+                }
+            }
+            oBtn[0].onclick = function(){
+                oBtn[1].style.background = ""
+                this.style.background = "#f66"
+                oUl.style.background = `url('/works/3dpicshow/images/${_num}.jpg') no-repeat center/cover`;
+                num += 22.5
+                num %= 360
+                _num++
+                _num %= 16
+                run(num)
+            }
+            oBtn[1].onclick = function(){
+                oBtn[0].style.background = ""
+                this.style.background = "#f66"
+                oUl.style.background = `url('/works/3dpicshow/images/${_num}.jpg') no-repeat center/cover`;
+                num -= 22.5
+                num %= 360
+                run(num)
+                _num--
+                if(_num <= 0) _num = 15
+            }
+            function run(num){
+                for(let j=0;j<16;j++){
+                    var oLi = oUl.getElementsByTagName('li')
+                    oLi[j].style.transform = `rotateY(${j*22.5+num}deg) translateZ(600px)` 
+                }
+            }
+            function autoRun(){
+                num += 0.1
+                num %= 360
+                run(num)
+            }
+            var timer = setInterval(autoRun,20)
+            oBox.onmouseover = function (){
+                clearInterval(timer)
+            }
+            oBox.onmouseout = function (){
+                clearInterval(timer)
+                timer = setInterval(autoRun,20)
+            }
+            oBtn[2].onclick = function (){
+                degX += 10
+                degX %= 90
+                oWrap.style.transform = `rotateX(${degX}deg) rotateZ(${degZ}deg)`
+            }
+            oBtn[3].onclick = function (){
+                degX -= 10
+                degX %= 90
+                oWrap.style.transform = `rotateX(${degX}deg) rotateZ(${degZ}deg)`
+            }
+            oBtn[4].onclick = function (){
+                degZ += 10
+                degZ %= 90
+                oWrap.style.transform = `rotateX(${degX}deg) rotateZ(${degZ}deg)`
+            }
+            oBtn[5].onclick = function (){
+                degZ -= 10
+                degZ %= 90
+                oWrap.style.transform = `rotateX(${degX}deg) rotateZ(${degZ}deg)`
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+//- 后台界面重写
+doctype html
+html
+  head
+    title 后台管理
+    meta(charset="utf-8")
+    meta(name="author", content="dawang")
+    link(rel="stylesheet", href="/layui/css/layui.css")
+    link(rel="stylesheet", href="/css/nav.css")
+    script(src="/layui/layui.js")
+
+    style.
+      .layui-side, .layui-body{
+        top: 60px;
+      }
+      .layui-body{
+        padding: 15px;
+      }
+      
+    block css
+  body
+    // 导航
+    .blog-header(style="background:#393d49;")
+      .layui-container
+        .layui-row
+          ul.layui-nav.layui-col-xs9
+            li.layui-nav-item
+              a(href="/")
+                i.layui-icon.layui-icon-home 
+                |主页 
+            li.layui-nav-item
+              a(href="/article")
+                i.layui-icon.layui-icon-release
+                |
+                | 文章主页
+            li.layui-nav-item
+              a(href="/diary") 博客日记 
+            li.layui-nav-item
+              a(href="/workscase") 作品案例
+            li.layui-nav-item
+              a(href="/find") 寻觅足迹 
+            li.layui-nav-item
+              a(href="/about") 关于博客 
+            li.layui-nav-item
+              a(href="/dynamic") 时间线
+          ul.layui-nav.layui-col-xs3
+            li.layui-nav-item
+              a.logout(href="javascript:;" data-username=username) 退出登录
+    // 左侧导航
+    .layui-side.layui-bg-black
+      .layui-side-scroll
+        ul(lay-filter="list").layui-nav.layui-nav-tree
+          if role > 1
+            li.layui-nav-item
+              a(href="/admin/user") 用户管理
+            li.layui-nav-item
+              a(href="/admin/article") 文章管理
+            li.layui-nav-item
+              a(href="/admin/edit") 编辑站点信息
+            li.layui-nav-item
+              a(href="/admin/timeline") 管理记事信息
+            li.layui-nav-item
+              a(href="/admin/dataapi") 编辑数据接口
+            li.layui-nav-item
+              a(href="/admin/datamanage") 管理数据接口
+          li.layui-nav-item
+            a(href="/admin/comment") 评论管理
+          li.layui-nav-item
+            a(href="/admin/userface") 头像上传
+    // 后台管理主体部分
+    .layui-body
+      block main
+    script(src="http://pv.sohu.com/cityjson?ie=utf-8")
+    script.
+      layui.use('element', function(){
+        var element = layui.element;
+        const $ = layui.$
+
+        $(".layui-nav-item a").each((i, v) => {
+          const a_href = $(v).prop('href')         
+          if(a_href === location.href){
+            $('li').eq(i).addClass("layui-this")
+          }
+        })
+      });
+      window.onload = function(){
+        function getData(url, method, data) {
+          let $ = layui.$;
+          return new Promise((res, rej) => {
+            $.ajax({
+              type: method || "GET",
+              url: url,
+              dataType: "text",
+              data: data,
+              success: data => {res(data)}
+            });
+          });
+        }
+        let oUserLogout = document.querySelector('.logout');
+        oUserLogout.onclick = function (e){
+          e = e || window.event;
+          (typeof e.preventDefault !== 'undefined') ? e.preventDefault() : e.returnValue = false;
+          let pid,
+              username = this.getAttribute("data-username");
+          if(returnCitySN){
+            pid = returnCitySN['cip'];
+          }else{
+            pid = username;
+          }
+          let data = {pid,username};
+          //console.log(data);
+          getData("/user/logout","POST",data).then(data => {
+            //console.log(history);
+            window.location.href = "/";
+          });
+        }
+      }

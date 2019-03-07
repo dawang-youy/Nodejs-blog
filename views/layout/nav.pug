@@ -1,0 +1,69 @@
+.blog-header
+      .layui-container
+        .layui-row
+          .layui-col-xs3
+            h1.grid-demo(style="display:inline-block;vertical-align:middle;")
+              span 青 &nbsp
+              span 丝 &nbsp
+              span 梦 &nbsp
+              span 思 &nbsp
+              span 维 &nbsp
+            .grid-demo(style="display:inline-block;height:34px;border-right:1px solid #aaa;vertical-align:middle;") &nbsp
+            .grid-demo(style="display:inline-block;margin-left:20px;color:#666;font-size:14px;vertical-align:middle;")
+              p 大王博客
+              p 专注前端开发
+          .layui-col-xs7
+            ul.grid-demo.layui-nav#head-nav
+              li.layui-nav-item
+                a(href="/")
+                  i.layui-icon.layui-icon-home 
+                  | 首页 
+              li.layui-nav-item
+                a(href="/article") web开发
+                dl.layui-nav-child
+                  dd
+                    a(href="/index/type") 前端开发
+                  dd
+                    a(href="/index/type") 后端开发
+                  dd
+                    a(href="/index/type") 推荐工具
+              li.layui-nav-item
+                a(href="/diary") 博客日记 
+              li.layui-nav-item
+                a(href="/workscase") 作品案例
+                dl.layui-nav-child
+                  dd
+                    a(href="/works/tmall.html" target="_blank") 仿静态天猫官网
+                  dd
+                    a(href="/works/calc.html" target="_blank") 简易计算器
+                  dd
+                    a(href="/works/3dpicshow.html" target="_blank") 3D展示
+                  dd
+                    a(href="") 网页小游戏
+                  dd
+                    a(href="") 休闲
+                  dd
+                    a(href="") 数据分析
+                  dd
+                    a(href="") 拓展
+              li.layui-nav-item
+                a(href="/find") 寻觅足迹 
+              li.layui-nav-item
+                a(href="/about") 关于博客 
+              li.layui-nav-item
+                a(href="/dynamic") 时间线
+                //- dl.layui-nav-child
+                  
+          .layui-col-xs2(style="line-height:60px;")
+            .grid-demo(style="font-size:14px;")
+              if session.role
+                a.user(href=session.role > 1 ? "/admin/user": "/admin/userface")
+                  img.avatar(src=session.avatar, alt=session.username,width="40",title=session.username)
+                  span.small.ellipsis= users ? users : "游客"
+              else
+                a.user(href="javascript:;")
+                  img.avatar(src="", alt="",width="40",title="")
+                  span.small.ellipsis= users ? users : "游客"
+              span.time-frame
+
+            

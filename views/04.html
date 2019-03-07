@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>关注前端开发-文章添加页|青丝梦思维博客</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="dawang" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" type="image/x-icon" href="/img/bg/icon.cur" />
+    <link rel="stylesheet" href="/layui/css/layui.css" />
+    <link rel="stylesheet" href="/css/nav.css" />
+    <link rel="stylesheet" href="/css/add.css" />
+    <script src="/layui/layui.js"></script>
+  </head>
+  <body>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格--><!-- [if lt IE 9]--><!-- <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>--><!-- <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>--><!-- [endif]          -->
+    <div class="blog-header">
+        <div class="layui-container">
+          <div class="layui-row">
+            <div class="layui-col-xs3">
+              <h1 class="grid-demo" style="display:inline-block;vertical-align:middle;">
+                <span>青 &nbsp;</span>
+                <span>丝 &nbsp;</span>
+                <span>梦 &nbsp;</span>
+                <span>思 &nbsp;</span>
+                <span>维 &nbsp;</span>
+              </h1>
+              <div class="grid-demo" style="display:inline-block;height:34px;border-right:1px solid #aaa;vertical-align:middle;">
+                &nbsp;
+              </div>
+              <div class="grid-demo" style="display:inline-block;margin-left:20px;color:#666;font-size:14px;vertical-align:middle;">
+                <p>大王博客</p>
+                <p>专注前端开发</p>
+              </div>
+            </div>
+            <div class="layui-col-xs7">
+              <ul class="grid-demo layui-nav" id="head-nav">
+                <li class="layui-nav-item">
+                  <a href="/"><i class="layui-icon layui-icon-home"></i>首页</a>
+                </li>
+                <li class="layui-nav-item">
+                  <a href="/article">web开发</a>
+                  <dl class="layui-nav-child" id="type-nav">
+                    <dd><a href="/article/type/webFront">前端开发</a></dd>
+                    <dd><a href="/article/type/webBack">后端开发</a></dd>
+                    <dd><a href="/article/type/tool">推荐工具</a></dd>
+                  </dl>
+                </li>
+                <li class="layui-nav-item"><a href="/diary">博客日记 </a></li>
+                <li class="layui-nav-item">
+                  <a href="/workscase">作品案例</a>
+                  <dl class="layui-nav-child">
+                    <dd><a href="/works/tmall.html" target="_blank">仿静态天猫官网</a></dd>
+                    <dd><a href="/works/calc.html" target="_blank">简易计算器</a></dd>
+                    <dd><a href="/works/3dpicshow.html" target="_blank">3D展示</a></dd>
+                    <dd><a href="" target="_blank">网页小游戏</a></dd>
+                    <dd><a href="" target="_blank">休闲</a></dd>
+                    <dd><a href="" target="_blank">数据分析</a></dd>
+                    <dd><a href="" target="_blank">拓展</a></dd>
+                  </dl>
+                </li>
+                <li class="layui-nav-item"><a href="/find">寻觅足迹 </a></li>
+                <li class="layui-nav-item"><a href="/about">关于博客 </a></li>
+                <li class="layui-nav-item"><a href="/dynamic">时间线 </a></li>
+              </ul>
+            </div>
+            <div class="layui-col-xs2" style="line-height:60px;">
+              <div class="grid-demo" style="font-size:14px;">
+                <a href="javascript:;" class="user">
+                  <img class="avatar" src="" alt="" width="40" title="游客">
+                  <span class="small ellipsis">游客</span>
+                </a>
+                <span class="time-frame" style="color: rgb(255, 45, 85);">晚上好！</span>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div id="slide">
+        <ul>
+          <li><a href="/user">我要登录</a></li>
+          <li><a href="/user">我要注册</a></li>
+        </ul>
+        <div class="find"></div>
+        <button id="btnfold" title="点击展开登录注册"><span></span></button>
+    </div>
+    <div id="search-box">
+        <div class="search">
+          <form action="" name="searchform" id="searchform">
+            <input
+              class="inputtext"
+              type="text"
+              placeholder="请输入关键字"
+              name="searchinput"
+            /><input class="iptsubmit" type="submit" value="搜 索" />
+          </form>
+        </div>
+        <div class="searchclose"></div>
+    </div>
+    <div id="main">
+            <div class="layui-container">
+                <div class="article-add layui-form">
+                    <div class="layui-tab layui-tab-brief" lay-filter="user">
+                        <ul class="layui-tab-title">
+                            <li class="layui-this">文章编辑</li>
+                        </ul>
+                        <div class="layui-form layui-form-content" id="editing">
+                            <div class="layui-tab-item layui-show">
+                                <form action="/article" method="POST">
+                                    <div class="layui-row layui-col-space15 layui-form-item">
+                                        <div class="layui-col-md6">
+                                            <label class="layui-form-label">types</label>
+                                            <div class="layui-input-block">
+                                                <select lay-verify="required" name="type" lay-filter="column">
+                                                  <option></option>
+                                                  <option value="webFront">webFront</option>
+                                                  <option value="webBack">webBack</option>
+                                                  <option value="tools">tools</option>
+                                                  <option value="diary">diary</option>
+                                                  <option value="web">web</option>
+                                                  <option value="python">python</option>
+                                                  <option value="works">works</option>
+                                                </select>
+                                                <!-- <div class="layui-unselect layui-form-select">
+                                                  <div class="layui-select-title">
+                                                    <input type="text" placeholder="请选择" value="" readonly=""
+                                                            class="layui-input layui-unselect">
+                                                    <i class="layui-edge"></i>
+                                                  </div>
+                                                  <dl class="layui-anim layui-anim-upbit" id="types">
+                                                    <dd lay-value="" class="layui-select-tips">请选择</dd>
+                                                    <dd lay-value="webFront" class="">webFront</dd>
+                                                    <dd lay-value="webBack" class="">webBack</dd>
+                                                    <dd lay-value="tool" class="">tool</dd>
+                                                    <dd lay-value="diary" class="">diary</dd>
+                                                    <dd lay-value="web" class="">web</dd>
+                                                    <dd lay-value="python" class="">python</dd>
+                                                  </dl>
+                                                </div> -->
+                                            </div>
+                                            <label class="layui-form-label">tips</label>
+                                            <div class="layui-input-block">
+                                              <select lay-verify="required" name="tips" lay-filter="column">
+                                                <option></option>
+                                                <option value="Vue">Vue</option>
+                                                <option value="React">React</option>
+                                                <option value="Angular">Angular</option>
+                                                <option value="Nodejs">Nodejs</option>
+                                                <option value="HTML">HTML</option>
+                                                <option value="CSS">CSS</option>
+                                                <option value="JavaScript">JavaScript</option>
+                                                <option value="Django">Django</option>
+                                                <option value="Flask">Flask</option>
+                                                <option value="Spider">Spider</option>
+                                                <option value="Diary">Diary</option>
+                                              </select>
+                                              <!-- <div class="layui-unselect layui-form-select">
+                                                  <div class="layui-select-title"><input type="text" placeholder="请选择"
+                                                                                          value="" readonly=""
+                                                                                          class="layui-input layui-unselect">
+                                                      <i class="layui-edge"></i>
+                                                  </div>
+                                                  <dl class="layui-anim layui-anim-upbit">
+                                                      <dd lay-value="" class="layui-select-tips">请选择</dd>
+                                                      <dd lay-value="Vue" class="">Vue</dd>
+                                                      <dd lay-value="React" class="">React</dd>
+                                                      <dd lay-value="Angular" class="">Angular</dd>
+                                                      <dd lay-value="Nodejs" class="">Nodejs</dd>
+                                                      <dd lay-value="HTML" class="">HTML</dd>
+                                                      <dd lay-value="CSS" class="">CSS</dd>
+                                                      <dd lay-value="JavaScript" class="">JavaScript</dd>
+                                                      <dd lay-value="Django" class="">Django</dd>
+                                                      <dd lay-value="Flask" class="">Flask</dd>
+                                                      <dd lay-value="Spider" class="">Spider</dd>
+                                                      <dd lay-value="Diary" class="">Diary</dd>
+                                                  </dl>
+                                              </div> -->
+                                            </div>
+                                            <label class="layui-form-label">tags</label>
+                                            <div class="layui-input-block" id="tags">
+                                              <input type="checkbox" name="tags" value="笔记" title="笔记" checked>
+                                              <input type="checkbox" name="tags" value="jquery" title="jquery">
+                                              <input type="checkbox" name="tags" value="iconfont" title="iconfont">
+                                              <input type="checkbox" name="tags" value="前端工具" title="前端工具">
+                                              <input type="checkbox" name="tags" value="javascript" title="javascript">
+                                              <input type="checkbox" name="tags" value="web兼容" title="web兼容">
+                                              <input type="checkbox" name="tags" value="前端框架" title="前端框架">
+                                              <input type="checkbox" name="tags" value="博客" title="博客" checked>
+                                              <input type="checkbox" name="tags" value="webpack" title="webpack">
+                                              <input type="checkbox" name="tags" value="闭包" title="闭包">
+                                              <input type="checkbox" name="tags" value="mongoose" title="mongoose">
+                                              <input type="checkbox" name="tags" value="mysql" title="mysql">
+                                              <input type="checkbox" name="tags" value="less" title="less">
+                                              <input type="checkbox" name="tags" value="中文文档" title="中文文档">
+                                              <input type="checkbox" name="tags" value="前端布局" title="前端布局">
+                                              <input type="checkbox" name="tags" value="特效" title="特效">
+                                              <input type="checkbox" name="tags" value="Vue" title="Vue">
+                                              <input type="checkbox" name="tags" value="React" title="React">
+                                              <input type="checkbox" name="tags" value="css" title="css">
+                                              <input type="checkbox" name="tags" value="css3" title="css3">
+                                              <input type="checkbox" name="tags" value="html5" title="html5">
+                                              <input type="checkbox" name="tags" value="sass" title="sass">
+                                              <input type="checkbox" name="tags" value="bootstrap" title="bootstrap">
+                                              <input type="checkbox" name="tags" value="canvas" title="canvas">
+                                              <input type="checkbox" name="tags" value="UI框架" title="UI框架">
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-md6">
+                                            <label class="layui-form-label" for="L_title">title</label>
+                                            <div class="layui-input-block">
+                                                <input class="layui-input" type="text" name="title" required=""
+                                                       lay-verify="required" autocomplete="off" id="L_title">
+                                            </div>
+                                            <label class="layui-form-label" for="L_des">des</label>
+                                            <div class="layui-input-block">
+                                                <input class="layui-input" type="text" name="des" required=""
+                                                       lay-verify="required" autocomplete="off" id="L_des">
+                                            </div>
+                                            <label class="layui-form-label" for="L_url">url</label>
+                                            <div class="layui-input-block">
+                                                <input class="layui-input" type="text" name="url" required=""
+                                                       lay-verify="required" id="L_url">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item layui-form-text">
+                                        <textarea style="display: none;" id ="article-content"></textarea>
+                                    </div>                  
+                                </form>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <button class="layui-btn" lay-filter="send" lay-submit>立即发布</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div id="top-box"><i class="layui-icon layui-icon-top"></i></div>
+    <div class="layui-container layui-bg-black" id="blog-footer">
+        <div class="layui-row">
+          <div class="div">
+            <div class="grid-demo" style="text-align:center;">
+              <p>
+                注：本站为个人博客，由本人设计编写，个人使用，未经许可不得用于任何商业用途。版权所有
+              </p>
+              <p>
+                2018 Copyright © &nbsp;
+                <a class="hov" href="http://www.dawang.xin" target="_blank">www.dawang.xin &nbsp;</a>
+                <span>All Rights Reserved &nbsp;</span>
+                <a class="hov" href="http://www.miitbeian.gov.cn" target="_blank">蒙ICP备18005902号-1</a>
+              </p>
+              <div>
+                <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=15070202000117" style="display:inline-block;height:20px;line-height:20px;text-decoration:none;vertical-align:middle;">
+                  <img src="/img/bg/beian.png" style="float:left;" />
+                  <p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">
+                    蒙公网安备 15070202000117号
+                  </p>
+                </a>
+                <span style="display:inline-block;margin:0 20px;height:20px;line-height:20px;vertical-align:middle;">
+                  电子邮箱：
+                  <a class="hov" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&amp;amp&amp;email=478572517@qq.com" target="_blank">478572517@qq.com</a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <script src="/js/add.js"></script>
+    <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+    <script src="/js/nav.js"></script>
+  </body>
+</html>

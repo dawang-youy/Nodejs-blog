@@ -1,0 +1,77 @@
+extends ./admin
+
+block main
+  table(lay-data="{width: 892,url:'/user/users/', page:{theme:'#f50'}, id:'idTest'}", lay-filter="demo").layui-table
+    thead
+      tr
+        th(lay-data="{field:'username', align:'center'}") 用户名
+        th(lay-data="{field:'role', align:'center'}") 权限
+        th(lay-data="{field:'articleNum', align:'center'}") 文章数量
+        
+        th(lay-data="{field:'commentNum', align:'center'}") 评论数量
+
+        th(lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}") 操作
+  script(type="text/html")#barDemo
+    input(type="text" name="role" style="width:60px;margin-right:10px;" placeholder="权限")
+    a(lay-event="changerole").layui-btn.layui-btn-danger.layui-btn-xs 更改
+    a(lay-event="del").layui-btn.layui-btn-danger.layui-btn-xs 删除
+  script.
+    layui.use(['table', 'layer'], function(){
+      const table = layui.table
+      const layer = layui.layer
+      const $ = layui.$
+      
+      table.on("tool(demo)", (obj) => {
+        const data = obj.data
+        const _id = data._id
+        //console.log(data)
+        console.log(data,_id)
+        if(obj.event === "del"){
+          layer.confirm("确认删除？", () => {
+            $.ajax({
+              method: "delete",
+              url: "/user/" + _id,
+              data: {
+                _id
+              },
+              success(res){
+                if(res.state){
+                  layer.msg(res.message, {
+                    anim: 1,
+                    time: 800
+                  }, () => location.reload())
+                }else{
+                  console.error(res.message)
+                }
+              }
+            })
+          })
+        }else if(obj.event === "changerole"){
+          const index = Number(obj.tr.selector.split("=")[1][1])
+          const val = $("input[name='role']").eq(index).val()
+          console.log(val)
+          //- console.log(Number(obj.tr.selector.split("=")[1][1]))
+          layer.confirm("确认更改当前权限？", () => {
+            $.ajax({
+              method: "post",
+              url: "/user/changerole",
+              data: {
+                _id,
+                role:val
+              },
+              success(res){
+                if(res.state){
+                  layer.msg(res.message, {
+                    anim: 1,
+                    time: 800
+                  }, () => location.reload())
+                }else{
+                  layer.msg(res.message)
+                  //- console.error(res.message)
+                }
+              }
+            })
+          })
+        }
+      })
+    });

@@ -1,0 +1,27 @@
+doctype html
+html
+  head
+    title 404
+    meta(charset="uft8")
+    style(ref="stylesheet").
+      .text-center{
+        text-align: center;
+      }
+  body
+    h1.text-center=result
+    h2.text-center 404，很抱歉，您要访问的页面不存在！
+    h2.text-center sorry! not found!!!
+      p 温馨提示：
+      p 请检查您访问的网址是否正确
+      p 如果您不能确认访问的网址，请浏览更多页面查看更多网址。
+    div.text-center
+      span#time 3
+      |秒后将返回首页
+    
+    script.
+      let n = 3
+      const fn = () => {
+        time.innerHTML = --n
+        if(n === 0)location.href = "/"
+      }
+      setInterval(fn, 1000)

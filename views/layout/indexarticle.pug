@@ -1,0 +1,29 @@
+ul.article-list
+    - for(var i=0,len=artList.length;i<len;i++)
+        li
+            .list-face
+                img(src=artList[i].author.avatar, alt=artList[i].author)
+            .list-text
+                h2
+                    a.layui-badge= artList[i].tips
+                    a.articlt-title.ellipsis(href=`/article/${artList[i]._id}` target="_blank")= artList[i].title
+                .list-content!= artList[i].des ? artList[i].des : artList[i].content
+                .list-info
+                    span
+                        i(title="日期").layui-icon.layui-icon-date
+                        = artList[i].created.toLocaleString()
+                    span
+                        img(src=artList[i].author.avatar, alt=artList[i].author)
+                        a= artList[i].author.username
+                    span.list-reply
+                        i(title="评论").layui-icon.layui-icon-reply-fill
+                        = (artList[i].commentNum > 0) ? artList[i].commentNum : 0
+                        |条评论
+                    span.list-love(data-loveNum=artList[i].loveNum?artList[i].loveNum:0)
+                        a(href="/article/love/"+`${artList[i]._id}`,title="点赞")
+                            i.layui-icon.layui-icon-praise
+                            |喜欢
+                            = (artList[i].loveNum > 0) ? artList[i].loveNum : 0
+                p
+                    a(href=`/article/${artList[i]._id}`,title="阅读") 阅读全文
+                        i(title="阅读").layui-icon.layui-icon-right

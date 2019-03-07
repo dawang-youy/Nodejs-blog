@@ -1,0 +1,29 @@
+#main .layui-container {
+    margin-bottom: 15px;
+    margin-top: 76px;
+    border-radius: 2px;
+    background-color: #fff;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
+    border: 1px solid #fff;
+
+  }
+  .article-add {
+    padding-top: 7.5px;
+  }
+  .layui-form .layui-form-label{
+    width: 110px;
+    padding: 8px 15px;
+    height: 38px;
+    line-height: 20px;
+    border: 1px solid #e6e6e6;
+    border-radius: 2px 0 0 2px;
+    text-align: center;
+    background-color: #FBFBFB;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    box-sizing: border-box;
+  }
+  .layui-tab-title{
+    margin-bottom: 20px;
+  }

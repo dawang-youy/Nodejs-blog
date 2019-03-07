@@ -1,0 +1,218 @@
+extends ./layout/layout
+block css
+  link(rel="stylesheet", href="/css/index.css")
+block contents
+  .layui-container#blog-content
+    .layui-row.layui-col-space15
+      .layui-col-md9#main-con
+        .grid-demo(style="overflow:hidden;")
+          div.showimg-left
+            .grid-demo.layui-carousel#test01
+              ul(carousel-item="")
+                each item in ["/img/h11.jpg","/img/h12.jpg","/img/h14.jpg","/img/h13.jpg","/img/h17.jpg","/img/h16.jpg","/img/h15.jpg"]
+                  li 
+                    img(src=item, alt="",width="620",height="260")
+          div.showimg-text
+              div
+                a(href="",title="为什么说10月24日是程序员节？")
+                  img(src="/img/h1.jpg", alt="为什么说10月24日是程序员节？")
+                  span 为什么说10月24日是程序员节？
+              div
+                a(href="",title="为什么说10月24日是程序员节？")
+                  img(src="/img/h2.jpg", alt="为什么说10月24日是程序员节？")
+                  span 为什么说10月24日是程序员节？
+        .grid-demo.layui-tab.layui-tab-brief(lay-filter="docDemoTabBrief;")
+          ul.layui-tab-title
+            li.layui-this web前端
+            li 路由
+            li JavaScript
+            li Vue
+            li css
+          ul.layui-tab-content(style="height:260px;")
+            li.layui-tab-item.layui-show 
+              .layui-row
+                .layui-col-md4.layui-col-xs12.layui-col-sm12
+                  .grid-demo.showimg-text
+                    div
+                      a(href=`/article/+${randomList[0]._id}`,title=randomList[0].title)
+                        img(src="/img/h1.jpg", alt="为什么说10月24日是程序员节？")
+                        span=randomList[0].title
+                    div
+                      a(href=`/article/+${randomList[0]._id}`,title=randomList[0].title)
+                        img(src="/img/h2.jpg", alt="为什么说10月24日是程序员节？")
+                        span=randomList[1].title
+                .layui-col-md8.layui-col-xs12.layui-col-sm12
+                  .grid-demo.layui-collapse.tab-hide(lay-accordion="")
+                    .layui-colla-item
+                      h2.layui-colla-title layui 更适合哪些开发者？
+                      .layui-colla-content.layui-show
+                        p 在前端技术快速变革的今天，layui 仍然坚持语义化的组织模式，甚至于模块理念都是采用类AMD组织形式，并非是有意与时代背道而驰。layui 认为以jQuery为核心的开发方式还没有到完全消亡的时候，而早期市面上基于jQuery的UI都普通做得差强人意，所以需要有一个新的UI去重新为这一领域注入活力，并采用一些更科学的架构方式。因此准确地说，layui 更多是面向那些追求开发简单的前端工程师们，以及所有层次的服务端程序员。
+                    .layui-colla-item
+                      h2.layui-colla-title 为什么JS社区大量采用未发布或者未广泛支持的语言特性？
+                      .layui-colla-content
+                        p JS当初是被作为脚本语言设计的，所以某些问题并不是JS设计得差或者是JS设计者的失误。比如var的作用域问题，并不是“错误”，而是当时绝大部分脚本语言都是这样的，如perl/php/sh等。模块的问题也是，脚本语言几乎都没有模块/命名空间功能。弱类型、for-in之类的问题也是，只不过现在用那些老的脚本语言的人比较少，所以很多人都误以为是JS才有的坑。另外有人说JS是半残语言，满足不了开发需求，1999年就该死。半残这个嘛，就夸张了。JS虽然有很多问题，但是设计总体还是优秀的。——来自知乎@贺师俊
+                    .layui-colla-item
+                      h2.layui-colla-title 为什么前端工程师多不愿意用 Bootstrap 框架？
+                      .layui-colla-content
+                        p 因为不适合。如果希望开发长期的项目或者制作产品类网站，那么就需要实现特定的设计，为了在维护项目中可以方便地按设计师要求快速修改样式，肯定会逐步编写出各种业务组件、工具类，相当于为项目自行开发一套框架。——来自知乎@Kayo
+                    .layui-colla-item
+                      h2.layui-colla-title 说说MVC？
+                      .layui-colla-content
+                        p MVC全名是Model View 。是Controller模型(model)－视图(view)－控制器(controller)的缩写。MVC是比较直观的架构模式，用户操作->View（负责接收用户的输入操作）->Controller（业务逻辑处理）->Model（数据持久化）->View（将结果反馈给View）。
+            li.layui-tab-item 
+              .layui-row
+                .layui-col-md4
+                  .grid-demo.showimg-text
+                    div
+                      a(href=`/article/+${randomList[0]._id}`,title=randomList[0].title)
+                        img(src="/img/h1.jpg", alt="为什么说10月24日是程序员节？")
+                        span=randomList[2].title
+                    div
+                      a(href=`/article/+${randomList[0]._id}`,title=randomList[0].title)
+                        img(src="/img/h2.jpg", alt="为什么说10月24日是程序员节？")
+                        span=randomList[3].title
+                .layui-col-md8
+                  .grid-demo.layui-collapse.tab-hide(lay-accordion="")
+                    .layui-colla-item
+                      h2.layui-colla-title 说说MVVM？
+                      .layui-colla-content.layui-show
+                        p MVVM是Model-View-ViewModel的简写，MVVM是将“数据模型数据双向绑定”的思想作为核心，因此在View和Model之间没有联系，通过ViewModel进行交互，而且Model和ViewModel之间的交互是双向的，因此视图的数据的变化会同时修改数据源，而数据源数据的变化也会立即反应view。
+                    .layui-colla-item
+                      h2.layui-colla-title 什么是"前端路由?
+                      .layui-colla-content
+                        p 路由是根据不同的 url 地址展示不同的内容或页面。前端路由就是把不同路由对应不同的内容或页面的任务交给前端来做，之前是通过服务端根据 url 的不同返回不同的页面实现的。
+                    .layui-colla-item
+                      h2.layui-colla-title 什么时候适合使用"前端路由?
+                      .layui-colla-content
+                        p  在单页面应用，大部分页面结构不变，只改变部分内容的使用。
+                    .layui-colla-item
+                      h2.layui-colla-title "前端路由"有哪些优点和缺点?
+                      .layui-colla-content
+                        p 优点：用户体验好，不需要每次都从服务器全部获取，快速展现给用户。缺点：使用浏览器的前进，后退键的时候会重新发送请求，没有合理地利用缓存。单页面无法记住之前滚动的位置，无法在前进，后退的时候记住滚动的位置。
+            li.layui-tab-item 
+              .layui-row
+                .layui-col-md4
+                  .grid-demo.showimg-text
+                    div
+                      a(href=`/article/+${randomList[4]._id}`,title=randomList[4].title)
+                        img(src="/img/h1.jpg", alt="为什么说10月24日是程序员节？")
+                        span=randomList[4].title
+                    div
+                      a(href=`/article/+${randomList[5]._id}`,title=randomList[5].title)
+                        img(src="/img/h2.jpg", alt="为什么说10月24日是程序员节？")
+                        span=randomList[5].title
+                .layui-col-md8
+                  .grid-demo.layui-collapse.tab-hide(lay-accordion="")
+                    .layui-colla-item
+                      h2.layui-colla-title JQuery的实现原理？
+                      .layui-colla-content.layui-show
+                        p  jQuery源码封装在一个匿名函数的自执行环境中，有助于防止变量的全局污染，然后通过传入window对象参数，可以使window对象作为局部变量使用，好处是当jquery中访问window对象的时候，就不用将作用域链退回到顶层作用域了，从而可以更快的访问window对象。同样，传入undefined参数，可以缩短查找undefined时的作用域链。
+                    .layui-colla-item
+                      h2.layui-colla-title 谈一下Jquery中的bind()？
+                      .layui-colla-content
+                        p (1)、bind 【jQuery 1.3之前】主要用于给选择到的元素上绑定特定事件类型的监听函数；bind(type,[data],function(eventObject))；特点：(1)、适用于页面元素静态绑定。只能给调用它的时候已经存在的元素绑定事件，不能给未来新增的元素绑定事件。(2)、当页面加载完的时候，你才可以进行bind()，所以可能产生效率问题。
+                    .layui-colla-item
+                      h2.layui-colla-title 谈一下Jquery中的live()？
+                      .layui-colla-content
+                        p (2)、live 【jQuery 1.3之后】主要用于给选择到的元素上绑定特定事件类型的监听函数；live(type, [data], fn);(1)、live方法并没有将监听器绑定到自己(this)身上，而是绑定到了this.context上了。(2)、live正是利用了事件委托机制来完成事件的监听处理，把节点的处理委托给了document，新添加的元素不必再绑定一次监听器。(3)、使用live（）方法但却只能放在直接选择的元素后面，不能在层级比较深，连缀的DOM遍历方法后面使用，即$(“ul”").live...可以，但$("body").find("ul").live...不行；
+                    .layui-colla-item
+                      h2.layui-colla-title 谈一下Jquery中的delegate()？
+                      .layui-colla-content
+                        p 将监听事件绑定在就近的父级元素上，delegate(selector,type,[data],fn) (1)、选择就近的父级元素，因为事件可以更快的冒泡上去，能够在第一时间进行处理。(2)、更精确的小范围使用事件代理，性能优于.live()。可以用在动态添加的元素上。
+            li.layui-tab-item 
+              .layui-row
+                .layui-col-md4
+                  .grid-demo.showimg-text
+                    div
+                      a(href=`/article/+${randomList[6]._id}`,title=randomList[6].title)
+                        img(src="/img/h1.jpg", alt="为什么说10月24日是程序员节？")
+                        span=randomList[6].title
+                    div
+                      a(href=`/article/+${randomList[7]._id}`,title=randomList[7].title)
+                        img(src="/img/h2.jpg", alt="为什么说10月24日是程序员节？")
+                        span=randomList[7].title
+                .layui-col-md8
+                  .grid-demo.layui-collapse.tab-hide(lay-accordion="")
+                    .layui-colla-item
+                      h2.layui-colla-title 页面性能优化办法有哪些？
+                      .layui-colla-content.layui-show
+                        p 一、资源压缩与合并：主要包括这些方面：html压缩、css 压缩、js的压缩和混乱和文件合并。二、非核心代码异步加载异步加载的方式。三、利用浏览器缓存。四、使用CDN。五、预解析DNS。
+                    .layui-colla-item
+                      h2.layui-colla-title 事件流？
+                      .layui-colla-content
+                        p 事件流分为两种，捕获事件流和冒泡事件流。捕获事件流从根节点开始执行，一直往子节点查找执行，直到查找执行到目标节点。冒泡事件流从目标节点开始执行，一直往父节点冒泡查找执行，直到查到到根节点。事件流分为三个阶段，一个是捕获节点，一个是处于目标节点阶段，一个是冒泡阶段。
+                    .layui-colla-item
+                      h2.layui-colla-title  react 的虚拟dom是怎么实现的？
+                      .layui-colla-content
+                        p 首先说说为什么要使用Virturl DOM，因为操作真实DOM的耗费的性能代价太高，所以react内部使用js实现了一套dom结构，在每次操作在和真实dom之前，使用实现好的diff算法，对虚拟dom进行比较，递归找出有变化的dom节点，然后对其进行更新操作。为了实现虚拟DOM，我们需要把每一种节点类型抽象成对象，每一种节点类型有自己的属性，也就是prop，每次进行diff的时候，react会先比较该节点类型，假如节点类型不一样，那么react会直接删除该节点，然后直接创建新的节点插入到其中，假如节点类型一样，那么会比较prop是否有更新，假如有prop不一样，那么react会判定该节点有更新，那么重渲染该节点，然后在对其子节点进行比较，一层一层往下，直到没有子节点。
+                    .layui-colla-item
+                      h2.layui-colla-title  react 的渲染过程中，兄弟节点之间是怎么处理的？也就是key值不一样的时候。？
+                      .layui-colla-content
+                        p 通常我们输出节点的时候都是map一个数组然后返回一个ReactNode，为了方便react内部进行优化，我们必须给每一个reactNode添加key，这个key prop在设计值处不是给开发者用的，而是给react用的，大概的作用就是给每一个reactNode添加一个身份标识，方便react进行识别，在重渲染过程中，如果key一样，若组件属性有所变化，则react只更新组件对应的属性；没有变化则不更新，如果key不一样，则react先销毁该组件，然后重新创建该组件。
+            li.layui-tab-item 
+              .layui-row
+                .layui-col-md4
+                  .grid-demo.showimg-text
+                    div
+                      a(href=`/article/+${randomList[8]._id}`,title=randomList[8].title)
+                        img(src="/img/h1.jpg", alt="为什么说10月24日是程序员节？")
+                        span=randomList[8].title
+                    div
+                      a(href=`/article/+${randomList[9]._id}`,title=randomList[9].title)
+                        img(src="/img/h2.jpg", alt="为什么说10月24日是程序员节？")
+                        span=randomList[9].title
+                .layui-col-md8
+                  .grid-demo.layui-collapse.tab-hide(lay-accordion="")
+                    .layui-colla-item
+                      h2.layui-colla-title CSS 样式书写规范？
+                      .layui-colla-content.layui-show
+                        p 可能不同团队都有各自的规范，又或者很多人在写 CSS 的时候还是想到什么就写什么，不存在太多的约束。
+                    .layui-colla-item
+                      h2.layui-colla-title 命名空间规范？
+                      .layui-colla-content
+                        p 1、布局：以 g 为命名空间，例如：.g-wrap 、.g-header、.g-content。2、状态：以 s 为命名空间，表示动态的、具有交互性质的状态，例如：.s-current、s-selected。3、工具：以 u 为命名空间，表示不耦合业务逻辑的、可复用的的工具，例如：u-clearfix、u-ellipsis。
+                    .layui-colla-item
+                      h2.layui-colla-title 命名空间思想？
+                      .layui-colla-content
+                        p 没有选择 BEM 这种命名过于严苛及样式名过长过丑的规则，采取了一种比较折中的方案。不建议使用下划线 _ 进行连接。1.节省操作，输入的时候少按一个 shift 键 2.能良好区分 JavaScript 变量命名
+                    .layui-colla-item
+                      h2.layui-colla-title SASS 使用建议
+                      .layui-colla-content
+                        p 1、嵌套层级规定2、组件/公用类的使用方法3、尽量避免使用标签名
+        .grid-demo#blog-recommend
+          h2.clear
+            div
+              span.layui-breadcrumb(lay-separator="/")
+                a(href="") 首页
+                a(href="") 文章
+                a(href="") web开发
+                a(href="") Nodejs
+          fieldset.layui-elem-field
+            legend.bottom-line 特别推荐
+            ul.layui-field-box.layui-row
+              - for (var i = 0; i < 6; i++)
+                li.layui-col-xs6.layui-col-sm6.layui-col-md4
+                  a.img(href="",target="_blank")
+                    img(src="/img/h1.jpg", alt="为什么说10月24日是程序员节？")
+                  b 为什么说10月24日是程序员节？
+                  span 创立“程序员节”最早是来自俄文《计算机世界》（《Компьютерра》）出版社的主编德米特里·门德列留科（Дмитрий Мендрелюк）在1996年7月15日的想法，当时计划将节日命名为“计算机用户节”，定在每年9月份的第一个星期五，称之为“纯净的星期五
+                  a.readmore(href="",target="_blank") 文章阅读
+        .grid-demo#blog-img.layui-row
+          .layui-col-xs12.layui-col-sm12.layui-col-md12
+            a(href="",target="_blank")
+              img(src="/img/bg/5.jpg", alt="")  
+        .grid-demo
+          include ./layout/indexarticle.pug
+        #demo7(style="text-align:center;",data-maxNum=maxNum)
+          //- ul#LAY_demo2.flow-default(style="height: 300px;") 
+      .layui-col-md3
+        .layui-card.grid-demo
+          .layui-card-header 网站公告:
+          .layui-card-body
+            |本站采用Nodejs做为后台 pug模板+部分layUI框架渲染页面，现为测试阶段，一些功能在逐渐完善，源码存放在Github. 只有管理员admin才可发表文章。
+        include ./layout/right_tag
+
+block scripts
+  script(src="/js/home.js")
+
+  

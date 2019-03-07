@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="author" content="dawang">
+    <meta name="keywords" content="3d图片">
+    <title>3d相册</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body,
+      #box {
+        width: 100%;
+        height: 100%;
+      }
+      body {
+        perspective: 3000px;
+        min-width: 1200px;
+        overflow: hidden;
+      }
+      #box {
+        transform-style: preserve-3d;
+        transition: 3s ease-in;
+        transform: translateZ(0px) rotateX(0deg);
+      }
+      .img {
+        overflow: hidden;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+      }
+      .one {
+        background: url(/works/3dpicshow/image/1.jpg);
+        background-size: 100% 100%;
+        transform: translateZ(966px);
+      }
+      .two {
+        background: url(/works/3dpicshow/image/2.jpg);
+        background-size: 100% 100%;
+        transform: translateY(683px) translateZ(683px) rotateX(-45deg);
+      }
+      .three {
+        background: url(/works/3dpicshow/image/3.jpg);
+        background-size: 100% 100%;
+        transform: translateY(966px) rotateX(-90deg);
+      }
+      .four {
+        background: url(/works/3dpicshow/image/4.jpg);
+        background-size: 100% 100%;
+        transform: translateY(683px) translateZ(-683px) rotateX(-135deg);
+      }
+      .five {
+        background: url(/works/3dpicshow/image/5.jpg);
+        background-size: 100% 100%;
+        transform: translateZ(-966px) rotateX(180deg);
+      }
+      .six {
+        background: url(/works/3dpicshow/image/6.jpg);
+        background-size: 100% 100%;
+        transform: translateY(-683px) translateZ(-683px) rotateX(135deg);
+      }
+      .seven {
+        background: url(/works/3dpicshow/image/7.jpg);
+        background-size: 100% 100%;
+        transform: translateY(-966px) rotateX(90deg);
+      }
+      .eight {
+        background: url(/works/3dpicshow/image/8.jpg);
+        background-size: 100% 100%;
+        transform: translateY(-683px) translateZ(683px) rotateX(45deg);
+      }
+      ul {
+        position: absolute;
+        z-index: 9;
+        top: 22%;
+        right: 50px;
+        width: 150px;
+        margin-top: -168px;
+      }
+      ul li {
+        list-style: none;
+        width: 150px;
+        height: 42px;
+        margin: 10px 0;
+        border: 2px solid hotpink;
+        box-shadow: 0 0 10px #aae4fe;
+        transition: 0.7s;
+        cursor: pointer;
+      }
+      ul li:nth-of-type(1) {
+        background: url(/works/3dpicshow/image/1.jpg);
+        background-size: 100% 100%;
+      }
+      ul li:nth-of-type(2) {
+        background: url(/works/3dpicshow/image/2.jpg);
+        background-size: 100% 100%;
+      }
+      ul li:nth-of-type(3) {
+        background: url(/works/3dpicshow/image/3.jpg);
+        background-size: 100% 100%;
+      }
+      ul li:nth-of-type(4) {
+        background: url(/works/3dpicshow/image/4.jpg);
+        background-size: 100% 100%;
+      }
+      ul li:nth-of-type(5) {
+        background: url(/works/3dpicshow/image/5.jpg);
+        background-size: 100% 100%;
+      }
+      ul li:nth-of-type(6) {
+        background: url(/works/3dpicshow/image/6.jpg);
+        background-size: 100% 100%;
+      }
+      ul li:nth-of-type(7) {
+        background: url(/works/3dpicshow/image/7.jpg);
+        background-size: 100% 100%;
+      }
+      ul li:nth-of-type(8) {
+        background: url(/works/3dpicshow/image/8.jpg);
+        background-size: 100% 100%;
+      }
+      ul li:hover {
+        transform: scale(1.1);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box">
+      <div class="img one"></div>
+      <div class="img two"></div>
+      <div class="img three"></div>
+      <div class="img four"></div>
+      <div class="img five"></div>
+      <div class="img six"></div>
+      <div class="img seven"></div>
+      <div class="img eight"></div>
+    </div>
+    <ul></ul>
+    <script>
+      var oBox = document.getElementById("box");
+      var aImgBox = oBox.getElementsByTagName("div");
+      var oUl = document.getElementsByTagName("ul")[0];
+      for (var i = 0; i < aImgBox.length; i++) {
+        oUl.innerHTML += "<li></li>";
+      }
+      var aLi = oUl.getElementsByTagName("li");
+      var num = 0;
+      for (var i = 0; i < aLi.length; i++) {
+        aLi[i].index = i;
+        aLi[i].onclick = function() {
+          //console.log(num);
+          //console.log(aLi[num]);
+          aLi[num].style.borderColor = 'hotpink';
+          this.style.borderColor = '#000';
+          num = this.index;
+          oBox.style.cssText =
+            "transform:translateZ(-400px) rotateX(" + this.index * 45 + "deg);";
+        };
+      }
+    </script>
+  </body>
+</html>

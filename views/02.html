@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>关注前端开发-文章页|青丝梦思维博客</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="dawang" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" type="image/x-icon" href="/img/bg/icon.cur" />
+    <link rel="stylesheet" href="/layui/css/layui.css" />
+    <link rel="stylesheet" href="/css/nav.css" />
+    <link rel="stylesheet" href="/css/showimg.css" />
+    <link rel="stylesheet" href="/css/index.css" />
+    <script src="/layui/layui.js"></script>
+  </head>
+  <body>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格--><!-- [if lt IE 9]--><!-- <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>--><!-- <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>--><!-- [endif]          -->
+    <div class="blog-header">
+        <div class="layui-container">
+          <div class="layui-row">
+            <div class="layui-col-xs3">
+              <h1 class="grid-demo" style="display:inline-block;vertical-align:middle;">
+                <span>青 &nbsp;</span>
+                <span>丝 &nbsp;</span>
+                <span>梦 &nbsp;</span>
+                <span>思 &nbsp;</span>
+                <span>维 &nbsp;</span>
+              </h1>
+              <div class="grid-demo" style="display:inline-block;height:34px;border-right:1px solid #aaa;vertical-align:middle;">
+                &nbsp;
+              </div>
+              <div class="grid-demo" style="display:inline-block;margin-left:20px;color:#666;font-size:14px;vertical-align:middle;">
+                <p>大王博客</p>
+                <p>专注前端开发</p>
+              </div>
+            </div>
+            <div class="layui-col-xs7">
+              <ul class="grid-demo layui-nav" id="head-nav">
+                <li class="layui-nav-item">
+                  <a href="/"><i class="layui-icon layui-icon-home"></i>首页</a>
+                </li>
+                <li class="layui-nav-item">
+                  <a href="/article">web开发</a>
+                  <dl class="layui-nav-child" id="type-nav">
+                    <dd><a href="/article/type/webFront">前端开发</a></dd>
+                    <dd><a href="/article/type/webBack">后端开发</a></dd>
+                    <dd><a href="/article/type/tool">推荐工具</a></dd>
+                  </dl>
+                </li>
+                <li class="layui-nav-item"><a href="/diary">博客日记 </a></li>
+                <li class="layui-nav-item">
+                  <a href="/workscase">作品案例</a>
+                  <dl class="layui-nav-child">
+                    <dd><a href="/works/tmall.html" target="_blank">仿静态天猫官网</a></dd>
+                    <dd><a href="/works/calc.html" target="_blank">简易计算器</a></dd>
+                    <dd><a href="/works/3dpicshow.html" target="_blank">3D展示</a></dd>
+                    <dd><a href="" target="_blank">网页小游戏</a></dd>
+                    <dd><a href="" target="_blank">休闲</a></dd>
+                    <dd><a href="" target="_blank">数据分析</a></dd>
+                    <dd><a href="" target="_blank">拓展</a></dd>
+                  </dl>
+                </li>
+                <li class="layui-nav-item"><a href="/find">寻觅足迹 </a></li>
+                <li class="layui-nav-item"><a href="/about">关于博客 </a></li>
+                <li class="layui-nav-item"><a href="/dynamic">时间线 </a></li>
+              </ul>
+            </div>
+            <div class="layui-col-xs2" style="line-height:60px;">
+              <div class="grid-demo" style="font-size:14px;">
+                <a href="javascript:;" class="user">
+                  <img class="avatar" src="" alt="" width="40" title="游客">
+                  <span class="small ellipsis">游客</span>
+                </a>
+                <span class="time-frame" style="color: rgb(255, 45, 85);">晚上好！</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="slide">
+        <ul>
+          <li><a href="/user">我要登录</a></li>
+          <li><a href="/user">我要注册</a></li>
+        </ul>
+        <div class="find"></div>
+        <button id="btnfold" title="点击展开登录注册"><span></span></button>
+      </div>
+      <div id="search-box">
+        <div class="search">
+          <form action="" name="searchform" id="searchform">
+            <input
+              class="inputtext"
+              type="text"
+              placeholder="请输入关键字"
+              name="searchinput"
+            /><input class="iptsubmit" type="submit" value="搜 索" />
+          </form>
+        </div>
+        <div class="searchclose"></div>
+      </div>
+    <div class="blog-panel">
+      <div class="layui-container">
+        <ul class="layui-clear">
+          <li><a href="/article/tips/HTML">HTML</a></li>
+          <li><a href="/article/tips/CSS">CSS</a></li>
+          <li><a href="/article/tips/JavaScript">JavaScript</a></li>
+          <li><a href="/article/tips/Nodejs">Nodejs</a></li>
+          <li><a href="/article/tips/Vue">Vue</a></li>
+          <li><a href="/article/tips/React">React</a></li>
+          <li><a href="/article/tips/Angular">Angular</a></li>
+          <li><a href="/article/tips/Django">Django</a></li>
+          <li><a href="/article/tips/Spider">Spider</a></li>
+          <li><a href="/article/tips/Diary">Diary</a></li>
+          <li><a href="/article/tips/Database">Database</a></li>
+        </ul>
+        <div class="blog-column-right publish" style="display: none;">
+          <a class="layui-btn" href="/article/add">发表文章</a>
+        </div>
+      </div>
+    </div>
+    <div class="layui-container" id="blog-content">
+      <div class="layui-row layui-col-space15">
+        <div class="layui-col-md9" id="main-con">
+          <div class="grid-demo clear" id="blog-leftimg">
+            <img src="/img/h9.jpg" alt="web开发" />
+            <h2>记录web开发的那些事</h2>
+            <p>
+              web开发，包括前后端分离，记录站长如何从一个隔行小白进入到前端，在前端的学习过程，以及一些提高效率的工具使用。
+            </p>
+          </div>
+          <div class="grid-demo">
+            <h3 class="new-list">最新博文</h3>
+            <ul class="article-list">
+            </ul>
+            <div id="laypage" data-maxnum="4">
+            </div>
+          </div>
+        </div>
+        <div class="layui-col-md3">
+          <div class="layui-card grid-demo">
+            <h2 class="layui-card-header">
+              <span
+                style="padding:6px 4px;background:#1890ff;color:#fff;border-radius:4px;"
+                >博客简介</span
+              >
+            </h2>
+            <div class="layui-card-body" id="intro">
+              
+            </div>
+          </div>
+          <div class="layui-card grid-demo">
+              <h2 class="layui-card-header">
+                <i class="layui-icon layui-icon-release" title="更新">&nbsp;</i>
+                最近更新
+              </h2>
+              <div class="layui-card-body">
+                <ul class="right-new-list">
+                </ul>
+              </div>
+          </div>
+          <div class="grid-demo layui-card">
+              <h2 class="layui-card-header">
+                <i class="layui-icon layui-icon-spread-left" title="排行">&nbsp;</i>
+                热度排行
+              </h2>
+              <div class="layui-card-body" id="hot-list">
+                <div class="rank-list">
+                 
+                </div>
+                <ul class="right-hot-list">
+                  
+                </ul>
+              </div>
+            </div>
+          <div class="grid-demo layui-card" id="blog-message">
+              <h2 class="layui-card-header">
+                <i class="layui-icon layui-icon-dialogue" title="评论">&nbsp;</i>
+                精彩评论
+              </h2>
+              <div class="layui-card-body">
+                <ul class="right-comment-list">
+                  
+                </ul>
+              </div>
+          </div>
+          <div class="grid-demo layui-card">
+              <h2 class="layui-card-header">
+                <i class="layui-icon layui-icon-loading" title="随机">&nbsp;</i
+                >随机文章
+              </h2>
+              <div class="layui-card-body" id="random-list">
+                <div class="rank-list">
+                  
+                </div>
+                <ul class="right-hot-list">
+                 
+                </ul>
+              </div>
+          </div>
+          <div class="grid-demo layui-card" id="blog-message">
+              <h2 class="layui-card-header">
+                <i class="layui-icon layui-icon-chart-screen" title="信息">&nbsp;</i> 站点信息
+              </h2>
+              <div class="layui-card-body" id="web-info">
+                <ul>
+                  
+                </ul>
+              </div>
+          </div>
+          <div class="grid-demo layui-card" id="blog-tags">
+              <h2 class="layui-card-header">
+                <i class="layui-icon layui-icon-note" title="信息">&nbsp;</i> 标签云
+              </h2>
+              <div class="layui-card-body" id="web-tags">
+  
+              </div>
+          </div>
+          <div class="layui-card grid-demo">
+              <h2 class="layui-card-header">
+                <i class="layui-icon layui-icon-link" title="链接">&nbsp;</i
+                >友情链接
+              </h2>
+              <div class="layui-card-body">
+                <p>
+                  <span class="layui-badge-dot layui-bg-cyan"> </span>
+                  <a href="https://www.qdskill.com/nav" title="web前端导航" target="_blank">web前端导航</a>
+                </p>
+                <p>
+                  <span class="layui-badge-dot layui-bg-cyan"> </span>
+                  <a href="https://www.liaoxuefeng.com/" title="廖雪峰的官方网站" target="_blank">廖雪峰的官方网站</a>
+                </p>
+                <p>
+                  <span class="layui-badge-dot layui-bg-cyan"> </span>
+                  <a href="https://www.zhangxinxu.com/" title="张鑫旭的个人博客" target="_blank">张鑫旭的个人博客</a>
+                </p>
+                <p>
+                  <span class="layui-badge-dot layui-bg-cyan"> </span>
+                  <a href="https://juejin.im/post/5befeb5051882511a8527dbe" title="掘金" target="_blank">一年半经验，百度、有赞、阿里面试总结</a>
+                </p>
+                <p>
+                  <span class="layui-badge-dot layui-bg-cyan"> </span>
+                  <a href="https://jspang.com/archives/" title="技术胖" target="_blank">技术胖</a>
+                </p>
+                <p>
+                  <span class="layui-badge-dot layui-bg-cyan"> </span>
+                  <a href="https://www.5xiaobo.com" title="个人博客" target="_blank">吴晓波个人博客</a>
+                </p>
+                <p>
+                  <span class="layui-badge-dot layui-bg-cyan"> </span>
+                  <a href="http://www.runoob.com/w3cnote/front-end-developer-questions-and-answers.html" title="前端开发面试题" target="_blank">前端开发面试题</a>
+                </p>
+                <p>
+                  <span class="layui-badge-dot layui-bg-cyan"> </span>
+                  <a href="https://stackoverflow.com/" title="stackoverflow" target="_blank">stackoverflow官网</a>
+                </p>
+                <p>
+                  <span class="layui-badge-dot layui-bg-cyan"> </span>
+                  <a href="https://juejin.im/post/5b44a485e51d4519945fb6b7" title="前端面试的面试经验" target="_blank">前端面试的面试经验</a>
+                </p>
+                <p>
+                  <span class="layui-badge-dot layui-bg-cyan"> </span>
+                  <a href="https://www.jianshu.com/u/948da055a416" title="简书王南北" target="_blank">简书王南北</a>
+                </p>
+                <p>
+                  <span class="layui-badge-dot layui-bg-cyan"> </span>
+                  <a href="https://www.qdskill.com/" title="web前端技能" target="_blank">web前端技能</a>
+                </p>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="top-box"><i class="layui-icon layui-icon-top"></i></div>
+    <div class="layui-container layui-bg-black" id="blog-footer">
+        <div class="layui-row">
+          <div class="div">
+            <div class="grid-demo" style="text-align:center;">
+              <p>
+                注：本站为个人博客，由本人设计编写，个人使用，未经许可不得用于任何商业用途。版权所有
+              </p>
+              <p>
+                2018 Copyright © &nbsp;
+                <a class="hov" href="http://www.dawang.xin" target="_blank">www.dawang.xin &nbsp;</a>
+                <span>All Rights Reserved &nbsp;</span>
+                <a class="hov" href="http://www.miitbeian.gov.cn" target="_blank">蒙ICP备18005902号-1</a>
+              </p>
+              <div>
+                <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=15070202000117" style="display:inline-block;height:20px;line-height:20px;text-decoration:none;vertical-align:middle;">
+                  <img src="/img/bg/beian.png" style="float:left;" />
+                  <p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">
+                    蒙公网安备 15070202000117号
+                  </p>
+                </a>
+                <span style="display:inline-block;margin:0 20px;height:20px;line-height:20px;vertical-align:middle;">
+                  电子邮箱：
+                  <a class="hov" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&amp;amp&amp;email=478572517@qq.com" target="_blank">478572517@qq.com</a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <script src="/js/index.js"></script>
+    <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+    <script src="/js/nav.js"></script>
+  </body>
+</html>

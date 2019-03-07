@@ -1,0 +1,14 @@
+extends ./layout/layout
+
+block contents
+  #content
+    .user-frame
+      h2(style="color:red;")= status
+      h2 即将跳转
+
+block scripts
+  script.
+    setTimeout(() => {
+      //- location.href = "/article"，
+      history.go(-1)
+    }, 1000)

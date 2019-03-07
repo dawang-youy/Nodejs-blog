@@ -1,0 +1,162 @@
+extends ./admin
+block css
+  style.
+    #main .layui-container {
+      margin-bottom: 15px;
+      margin-top: 76px;
+      border-radius: 2px;
+      background-color: #fff;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
+      border: 1px solid #fff;
+
+    }
+    .article-add {
+      padding-top: 7.5px;
+    }
+    .layui-form .layui-form-label{
+      width: 110px;
+      padding: 8px 15px;
+      height: 38px;
+      line-height: 20px;
+      border: 1px solid #e6e6e6;
+      border-radius: 2px 0 0 2px;
+      text-align: center;
+      background-color: #FBFBFB;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      box-sizing: border-box;
+    }
+    .layui-tab-title{
+      margin-bottom: 20px;
+    }
+block main
+  #main
+    .layui-container
+      .article-add.layui-form
+        .layui-tab.layui-tab-brief(lay-filter="user")
+          ul.layui-tab-title
+            li.layui-this 站点信息编辑
+          #editing.layui-form.layui-form-content
+            .layui-tab-item.layui-show
+              form(action="/article", method="POST")
+                .layui-row.layui-col-space15.layui-form-item
+                  .layui-col-md6
+                    label.layui-form-label tips
+                    .layui-input-block
+                      input(type="checkbox",name="tips",value="HTML",title="HTML",checked)
+                      input(type="checkbox",name="tips",value="CSS",title="CSS",checked)
+                      input(type="checkbox",name="tips",value="JavaScript",title="JavaScript",checked)
+                      input(type="checkbox",name="tips",value="Vue",title="Vue",checked)
+                      input(type="checkbox",name="tips",value="React",title="React",checked)
+                      input(type="checkbox",name="tips",value="Angular",title="Angular",checked)
+                      input(type="checkbox",name="tips",value="Nodejs",title="Nodejs",checked)
+                      input(type="checkbox",name="tips",value="Django",title="Django",checked)
+                      input(type="checkbox",name="tips",value="Spider",title="Spider",checked)
+                      input(type="checkbox",name="tips",value="Diary",title="Diary",checked)
+                      input(type="checkbox",name="tips",value="Database",title="Database",checked)                  
+                    label.layui-form-label tags
+                    .layui-input-block
+                      input(type="checkbox",name="tags",value="笔记",title="笔记",checked)
+                      input(type="checkbox",name="tags",value="jquery",title="jquery",checked)
+                      input(type="checkbox",name="tags",value="iconfont",title="iconfont",checked)
+                      input(type="checkbox",name="tags",value="前端工具",title="前端工具",checked)
+                      input(type="checkbox",name="tags",value="javascript",title="javascript",checked)
+                      input(type="checkbox",name="tags",value="web兼容",title="web兼容",checked)
+                      input(type="checkbox",name="tags",value="前端笔记",title="前端笔记",checked)
+                      input(type="checkbox",name="tags",value="博客",title="博客",checked)
+                      input(type="checkbox",name="tags",value="webpack",title="webpack",checked)
+                      input(type="checkbox",name="tags",value="闭包",title="闭包",checked)
+                      input(type="checkbox",name="tags",value="mongoose",title="mongoose",checked)
+                      input(type="checkbox",name="tags",value="mysql",title="mysql",checked)
+                      input(type="checkbox",name="tags",value="less",title="less",checked)
+                      input(type="checkbox",name="tags",value="中文文档",title="中文文档",checked)
+                      input(type="checkbox",name="tags",value="前端布局",title="前端布局",checked)
+                      input(type="checkbox",name="tags",value="特效",title="特效",checked)
+                      input(type="checkbox",name="tags",value="Vue",title="Vue",checked)
+                      input(type="checkbox",name="tags",value="React",title="React",checked)
+                      input(type="checkbox",name="tags",value="css",title="css",checked)
+                      input(type="checkbox",name="tags",value="css3",title="css3",checked)
+                      input(type="checkbox",name="tags",value="html5",title="html5",checked)
+                      input(type="checkbox",name="tags",value="sass",title="sass",checked)
+                      input(type="checkbox",name="tags",value="bootstrap",title="bootstrap",checked)
+                      input(type="checkbox",name="tags",value="canvas",title="canvas",checked)
+                      input(type="checkbox",name="tags",value="UI框架",title="UI框架",checked)
+                  .layui-col-md6
+                    label(for="L_notice").layui-form-label notice
+                    .layui-input-block
+                      input(type="text", name="notice" required="", lay-verify="required" autocomplete="off")#L_notice.layui-input
+                    label(for="L_gambit").layui-form-label gambit
+                    .layui-input-block
+                      input(type="text", name="gambit" required="", lay-verify="" autocomplete="off")#L_gambit.layui-input
+                    label(for="L_banner").layui-form-label banner
+                    .layui-input-block
+                      input(type="text", name="banner" required="", lay-verify="" autocomplete="off")#L_banner.layui-input
+                    label(for="L_recomment").layui-form-label recomment
+                    .layui-input-block
+                      input(type="text", name="recomment" required="", lay-verify="" autocomplete="off")#L_recomment.layui-input
+                    label.layui-form-label types
+                    .layui-input-block
+                      input(type="checkbox",name="types",value="webFront",title="webFront",checked)
+                      input(type="checkbox",name="types",value="webBack",title="webBack",checked)
+                      input(type="checkbox",name="types",value="tools",title="tools",checked)
+                      input(type="checkbox",name="types",value="diary",title="diary",checked)
+                      input(type="checkbox",name="types",value="web",title="web",checked)
+                      input(type="checkbox",name="types",value="python",title="python",checked)
+                      input(type="checkbox",name="types",value="works",title="works",checked)
+                .layui-form-item.layui-form-text 上传banner图片
+                  textarea(style="display: none;")#article-content
+          .layui-form-item
+            button(lay-filter="send" lay-submit).layui-btn 立即发布
+  script.
+    layui.use(['form', 'layedit', "element"], function() {
+      const form = layui.form;
+      const layedit = layui.layedit;
+      const $ = layui.$
+      layedit.set({
+        uploadImage: {
+          url: '/upload/banner/image' //接口url
+          ,type: 'post' //默认post
+        }
+      });
+
+      const index = layedit.build('article-content',{tool:['image']}); //建立编辑器
+      
+      form.on("submit(send)", (res) => {
+        const { notice,gambit,banner,recomment } = res.field;
+        console.log(res.field);
+        let types=tips=tags = [];
+        $("input[name='tags']:checked").each(function(){
+          tags.push($(this).val())
+        });
+        $("input[name='tips']:checked").each(function(){
+          tips.push($(this).val())
+        });
+        $("input[name='types']:checked").each(function(){
+          types.push($(this).val())
+        });
+        //- console.log(res);
+        //- console.log(tags);
+        if(layedit.getText(index).length === 0)return layer.alert("请输入内容");
+        
+        const data = {
+          notice,
+          gambit,
+          banner,
+          recomment,
+          tips,
+          tags,
+          types
+        }
+        
+        $.post("/admin/edit", data, (msg) => {
+          if(msg.status){
+            layer.alert('发表成功', (res) => {
+              location.href = "/admin/edit"
+            })
+          }else{
+            layer.alert(`发表失败，失败信息：${msg.msg}`)
+          }
+        })
+      })
+    });

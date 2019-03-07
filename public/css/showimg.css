@@ -1,0 +1,162 @@
+.showimg-left{
+    float: left;
+    margin-right: 15px;
+}
+.showimg-text{
+    float: left;
+}
+.showimg-text > div{
+    position: relative;
+    overflow: hidden;
+    width: 270px;
+    height: 125px;
+    margin-bottom: 10px;
+    border-radius: 3px;
+}
+.showimg-text div a{
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+.showimg-text div a img{
+    width: 100%;
+    height:100%;
+    opacity: 0.7;
+    transition: all 0.5s;
+}
+.showimg-text div a:hover img{
+    opacity: 1;
+    transform: scale(1.1);
+}
+.showimg-text div a span{
+    position: absolute;
+    top:30%;
+    left:0;
+    overflow: hidden;
+    height: 48px;
+    padding: 0 40px;
+    text-overflow: ellipsis;
+    color: #fff;
+    text-align: center;
+    font-size: 15px;
+    line-height: 24px;
+}
+.tab-hide .layui-colla-content p{ 
+    overflow: hidden;
+    width: 560px;
+    height:70px; 
+    text-indent:32px;
+    text-overflow: ellipsis;
+}
+.bottom-line::after{
+    content: "";
+    display: block;
+    width: 70%;
+    height: 0;
+    border-bottom: 3px solid #393D49; 
+    transition: all .5s;
+}
+.bottom-line:hover::after{
+    width: 130%;
+}
+#blog-recommend{
+    overflow: hidden;
+}
+#blog-recommend h2 div{
+    float: right;
+}
+
+#blog-recommend ul li{
+    float: left;
+    overflow: hidden;
+    width: 30%;
+    height: 280px;
+    margin-left: 2px;
+    padding: 20px 10px;
+    border:1px solid #eee;
+    transition: all .5s;
+}
+#blog-recommend ul li:hover{
+    box-shadow: 0 0 4px #aaa;
+}
+#blog-recommend ul li a.img{
+    display: block;
+    overflow: hidden;
+    width: 90%;
+    height:130px;
+    margin: 0 auto;
+}
+#blog-recommend ul li a img{
+    width: 100%;
+    height:100%;
+    transition: all .5s;
+}
+#blog-recommend ul li a:hover img{
+    transform: scale(1.1);
+}
+#blog-recommend li b{
+    display: block;
+    width: 90%;
+    height: 20px;
+    margin:14px auto;
+    text-align: center;
+}
+#blog-recommend li > span{
+    display: block;
+    overflow: hidden;
+    position:relative;
+    width: 240px;
+    height:5.4em;
+    margin: 10px auto 20px;
+    line-height:1.8em;
+}
+#blog-recommend li > span *{
+    display: block;
+    width: 100%;
+    height: 1.4em;
+    overflow: hidden;
+}
+#blog-recommend .readmore{
+    text-indent: 28px;
+    color:#5FB878;
+}
+#blog-recommend .readmore:hover{
+    color:#333;
+}
+#blog-recommend .readmore::before{
+    content: "+";
+    color:#5FB878;
+}
+#blog-img div a{
+    display: block;
+    width: 98%;
+    height: 80%;
+    margin: auto;
+}
+#blog-img div img{
+    width: 100%;
+    height: 100%;
+}
+#music{
+    position: absolute;
+    top: 150px;
+    right: 200px;
+    /* width: 30px;
+    height:30px;
+    border:1px solid #999;
+    border-radius: 50%; */
+
+}
+#music.range{
+    animation: range 2s linear infinite;
+}
+@keyframes range{
+    to {
+        transform: rotate(360deg);
+    }
+}
+#music i{
+    color: #1890ff;
+    font-size: 30px;
+}

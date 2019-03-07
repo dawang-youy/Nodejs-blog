@@ -1,0 +1,142 @@
+extends ./layout/layout
+block css
+  style.
+    #main .layui-container {
+      margin-bottom: 15px;
+      margin-top: 76px;
+      border-radius: 2px;
+      background-color: #fff;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
+      border: 1px solid #fff;
+
+    }
+    .article-add {
+      padding-top: 7.5px;
+    }
+    .layui-form .layui-form-label{
+      width: 110px;
+      padding: 8px 15px;
+      height: 38px;
+      line-height: 20px;
+      border: 1px solid #e6e6e6;
+      border-radius: 2px 0 0 2px;
+      text-align: center;
+      background-color: #FBFBFB;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      box-sizing: border-box;
+    }
+    .layui-tab-title{
+      margin-bottom: 20px;
+    }
+
+block contents
+  #main
+    .layui-container
+      .article-add.layui-form
+        .layui-tab.layui-tab-brief(lay-filter="user")
+          ul.layui-tab-title
+            li.layui-this 文章编辑
+          #editing.layui-form.layui-form-content
+            .layui-tab-item.layui-show
+              form(action="/article", method="POST")
+                .layui-row.layui-col-space15.layui-form-item
+                  .layui-col-md6
+                    label.layui-form-label type
+                    .layui-input-block
+                      select(lay-verify="required", name="type", lay-filter="column")
+                        option
+                        option(value="webFront") webFront
+                        option(value="webBack") webBack
+                        option(value="tool") tool
+                        option(value="diary") diary
+                        option(value="web") web
+                        option(value="python") python
+                        option(value="works") works
+                    label.layui-form-label tips
+                    .layui-input-block
+                      select(lay-verify="required", name="tips", lay-filter="column")
+                        option
+                        option(value="Vue") Vue
+                        option(value="React") React
+                        option(value="Angular") Angular
+                        option(value="Nodejs") Nodejs
+                        option(value="HTML") HTML
+                        option(value="CSS") CSS
+                        option(value="JavaScript") JavaScript
+                        option(value="Django") Django
+                        option(value="Flask") Flask
+                        option(value="Spider") Spider
+                        option(value="Diary") Diary
+                    label.layui-form-label tags
+                    .layui-input-block
+                      input(type="checkbox",name="tags",value="笔记",title="笔记",checked)
+                      input(type="checkbox",name="tags",value="jquery",title="jquery")
+                      input(type="checkbox",name="tags",value="iconfont",title="iconfont")
+                      input(type="checkbox",name="tags",value="前端工具",title="前端工具")
+                      input(type="checkbox",name="tags",value="javascript",title="javascript")
+                      input(type="checkbox",name="tags",value="web兼容",title="web兼容")
+                      input(type="checkbox",name="tags",value="前端框架",title="前端框架")
+                      input(type="checkbox",name="tags",value="博客",title="博客",checked)
+                      input(type="checkbox",name="tags",value="webpack",title="webpack")
+                      input(type="checkbox",name="tags",value="闭包",title="闭包")
+                      input(type="checkbox",name="tags",value="mongoose",title="mongoose")
+                      input(type="checkbox",name="tags",value="mysql",title="mysql")
+                      input(type="checkbox",name="tags",value="less",title="less")
+                      input(type="checkbox",name="tags",value="中文文档",title="中文文档")
+                      input(type="checkbox",name="tags",value="前端布局",title="前端布局")
+                      input(type="checkbox",name="tags",value="特效",title="特效")
+                  .layui-col-md6
+                    label(for="L_title").layui-form-label 标题
+                    .layui-input-block
+                      input(type="text", name="title" required="", lay-verify="required" autocomplete="off")#L_title.layui-input
+                .layui-form-item.layui-form-text
+                  textarea(style="display: none;")#article-content
+          .layui-form-item
+            button(lay-filter="send" lay-submit).layui-btn 立即发布
+block scripts
+  script.
+    layui.use(['form', 'layedit', "element"], function() {
+      const form = layui.form;
+      const layedit = layui.layedit;
+      const $ = layui.$
+      layedit.set({
+        uploadImage: {
+          url: '/upload/images' //接口url
+          ,type: 'post' //默认post
+        }
+      });
+
+      const index = layedit.build('article-content'); //建立编辑器
+      
+      form.on("submit(send)", (res) => {
+        const { type,tips, title } = res.field;
+        let tags = [];
+        $("input[name='tags']:checked").each(function(){
+          tags.push($(this).val())
+        });
+        //- console.log(res);
+        //- console.log(res.field);
+        //- console.log(tags);
+        if(layedit.getText(index).trim().length === 0)return layer.alert("请输入内容");
+        
+        const data = {
+          type,
+          tips,
+          tags,
+          title,
+          content: layedit.getContent(index)
+        }
+        
+        $.post("/article/add", data, (msg) => {
+          if(msg.status){
+            layer.alert('发表成功', (res) => {
+              location.href = "/article"
+            })
+          }else{
+            layer.alert(`发表失败，失败信息：${msg.msg}`)
+          }
+        })
+      })
+    });

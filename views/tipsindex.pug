@@ -1,0 +1,28 @@
+extends ./layout/layout
+block css
+  link(rel="stylesheet", href="/css/index.css")
+block contents
+  include ./layout/tag
+  .layui-container#blog-content
+    .layui-row.layui-col-space15
+      //- 文章列表
+      .layui-col-md9#main-con
+        .grid-demo#blog-leftimg.clear
+          img(src="/img/h9.jpg", alt="web开发")  
+          h2 记录web开发的那些事
+          p web开发，包括前后端分离，记录站长如何从一个隔行小白进入到前端，在前端的学习过程，以及一些提高效率的工具使用。
+        .grid-demo
+          include ./layout/indexarticle.pug
+      //- 右侧公告
+      .layui-col-md3
+        include ./layout/right_tag
+
+block scripts
+  script(src="/js/index.js")
+  
+    
+    
+    
+    
+
+
