@@ -2,16 +2,16 @@
       .layui-container
         .layui-row
           .layui-col-xs3
-            h1.grid-demo(style="display:inline-block;vertical-align:middle;")
+            h1.grid-demo
               span 青 &nbsp
               span 丝 &nbsp
               span 梦 &nbsp
               span 思 &nbsp
               span 维 &nbsp
-            .grid-demo(style="display:inline-block;height:34px;border-right:1px solid #aaa;vertical-align:middle;") &nbsp
-            .grid-demo(style="display:inline-block;margin-left:20px;color:#666;font-size:14px;vertical-align:middle;")
+            .grid-demo.space &nbsp
+            .grid-demo.p
               p 大王博客
-              p 专注前端开发
+              p www.dawang.xin
           .layui-col-xs7
             ul.grid-demo.layui-nav#head-nav
               li.layui-nav-item
@@ -39,23 +39,22 @@
                   dd
                     a(href="/works/3dpicshow.html" target="_blank") 3D展示
                   dd
-                    a(href="") 网页小游戏
+                    a(href="/works/mogujie" target="_blank") 蘑菇街实战
                   dd
-                    a(href="") 休闲
+                    a(href="/myapp/index.html" target="_blank") vue-myapp
                   dd
-                    a(href="") 数据分析
+                    a(href="/echarts/react-router/" target="_blank") react-router|echarts
                   dd
-                    a(href="") 拓展
+                    a(href="/luckydial/luckydial.html" target="_blank") 幸运转盘
               li.layui-nav-item
                 a(href="/find") 寻觅足迹 
               li.layui-nav-item
                 a(href="/about") 关于博客 
               li.layui-nav-item
                 a(href="/dynamic") 时间线
-                //- dl.layui-nav-child
-                  
-          .layui-col-xs2(style="line-height:60px;")
-            .grid-demo(style="font-size:14px;")
+                //- dl.layui-nav-child           
+          .layui-col-xs2
+            .grid-demo
               if session.role
                 a.user(href=session.role > 1 ? "/admin/user": "/admin/userface")
                   img.avatar(src=session.avatar, alt=session.username,width="40",title=session.username)

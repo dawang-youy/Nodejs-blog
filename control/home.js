@@ -159,7 +159,7 @@ exports.banner = async (ctx) => {
 exports.artList = async (ctx) => {
   let body=ctx.request.body,maxNum,artList;
   let page = ctx.params.id || 1;
-  page--  ; 
+  page-- ; 
   let limitCount = Number(body.limit) || 10;
   let tips = body.tips;
   let type = body.type;

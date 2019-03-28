@@ -1,35 +1,4 @@
 extends ./admin
-block css
-  style.
-    #main .layui-container {
-      margin-bottom: 15px;
-      margin-top: 76px;
-      border-radius: 2px;
-      background-color: #fff;
-      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
-      border: 1px solid #fff;
-
-    }
-    .article-add {
-      padding-top: 7.5px;
-    }
-    .layui-form .layui-form-label{
-      width: 110px;
-      padding: 8px 15px;
-      height: 38px;
-      line-height: 20px;
-      border: 1px solid #e6e6e6;
-      border-radius: 2px 0 0 2px;
-      text-align: center;
-      background-color: #FBFBFB;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      box-sizing: border-box;
-    }
-    .layui-tab-title{
-      margin-bottom: 20px;
-    }
 block main
   #main
     .layui-container
@@ -73,7 +42,37 @@ block main
       });
 
       const index = layedit.build('article-content'); //建立编辑器
-      
+      function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+          let cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+            let cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+
+      function csrfSafeMethod(method) {
+          // these HTTP methods do not require CSRF protection
+          return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+      }
+
+      // Setting the token on the AJAX request
+      $.ajaxSetup({
+          beforeSend: function (xhr, settings) {
+              if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                //console.log( getCookie('csrf'))
+                xhr.setRequestHeader("X-Csrf-Token", getCookie('csrf'));
+                // xhr.setRequestHeader("X-Xsrf-Token", getCookie('csrf'));
+              }
+          }
+      });
       form.on("submit(send)", (res) => {
         const { tips,des,title,content } = res.field;
         console.log(res.field);

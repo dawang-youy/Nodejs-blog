@@ -612,11 +612,13 @@ exports.count = async (ctx, next) => {
   .catch(err => {
     console.log(err)
   });
-  let _id = website._id;  
-  await Website.updateOne({_id}, {$inc: {visitNum: 1}}, (err,mes) => {
-    if(err)return console.log(err)
-    //console.log(mes)
-    //console.log("访问计数器更新成功")
-  })
+  if(website){
+    let _id = website._id;  
+    await Website.updateOne({_id}, {$inc: {visitNum: 1}}, (err,mes) => {
+      if(err)return console.log(err)
+      //console.log(mes)
+      //console.log("访问计数器更新成功")
+    })
+  } 
   await next()
 }

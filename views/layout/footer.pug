@@ -6,7 +6,7 @@
     //-       img(src="/img/QR.jpg", alt="",width="100",height="100")
     //-     p 我的微信
     .div
-      .grid-demo(style="text-align:center;")
+      .grid-demo
         p 注：本站为个人博客，由本人设计编写，个人使用，未经许可不得用于任何商业用途。版权所有
         p 2018 Copyright © &nbsp
           |
@@ -18,11 +18,11 @@
           |
           |
           a.hov(href="http://www.miitbeian.gov.cn",target="_blank") 蒙ICP备18005902号-1
-        div
-          a(target="_blank",href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=15070202000117",style="display:inline-block;height:20px;line-height:20px;text-decoration:none;vertical-align:middle;")
-            img(src="/img/bg/beian.png",style="float:left;")
-            p(style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;") 蒙公网安备 15070202000117号
-          span(style="display:inline-block;margin:0 20px;height:20px;line-height:20px;vertical-align:middle;") 电子邮箱：
+        div.info
+          a(target="_blank",href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=15070202000117")
+            img(src="/img/bg/beian.png")
+            p 蒙公网安备 15070202000117号
+          span 电子邮箱：
             a.hov(href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&amp&email=478572517@qq.com",target="_blank") 478572517@qq.com
 block scripts
   script(src="/layui/layui.js")

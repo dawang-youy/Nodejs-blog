@@ -15,41 +15,4 @@ block main
         th(lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}") 操作
   script(type="text/html")#barDemo
     a(lay-event="del").layui-btn.layui-btn-danger.layui-btn-xs 删除
-  script.
-    layui.use(['table', 'layer'], function(){
-      const table = layui.table
-      const layer = layui.layer
-      const $ = layui.$
-      
-      table.on("tool(demo)", (obj) => {
-        const data = obj.data
-        // 评论id
-        const commentId = data._id
-        // 文章id
-        const articleId = data.article
-
-        console.log(data,articleId)
-        if(obj.event !== "del") return
-
-        layer.confirm("确认删除？", () => {
-          $.ajax({
-            method: "delete",
-            url: "/comment/" + commentId,
-            data: {
-              // 发送文章id值，减少后台查询
-              articleId
-            },
-            success(res){
-              if(res.state){
-                layer.msg(res.message, {
-                  anim: 1,
-                  time: 800
-                }, () => location.reload())
-              }else{
-                console.error(res.message)
-              }
-            }
-          })
-        })
-      })
-    })
+  script(src="/js/comment.js")

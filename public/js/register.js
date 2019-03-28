@@ -51,13 +51,46 @@ window.onload = function (){
   let regBtn = $("#reg form button");
   let changeBtn = $("#change form button");
   //console.log(button)
+  // get cookie using jQuery
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      let cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        let cookie = cookies[i].trim();
+        // Does this cookie string begin with the name we want?
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+
+  function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+  }
+
+  // Setting the token on the AJAX request
+  $.ajaxSetup({
+    beforeSend: function (xhr, settings) {
+      if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+        //console.log( getCookie('csrf'))
+        xhr.setRequestHeader("X-Csrf-Token", getCookie('csrf'));
+        //xhr.setRequestHeader("X-Xsrf-Token", getCookie('csrf'));
+      }
+    }
+  });
   loginBtn[0].onclick = function (e){
     e = e || window.event;
     (typeof e.preventDefault !== 'undefined') ? e.preventDefault() : e.returnValue = false;
     let username = $("#login input[name=username]").val().trim();
     let password = $("#login input[name=password]").val().trim();
     let pid;
-    if(returnCitySN){
+    //let returnCitySN = returnCitySN || new Date();
+    if(window.returnCitySN){
       pid = returnCitySN['cip'];
     }else{
       pid = username;
@@ -91,7 +124,7 @@ window.onload = function (){
     let passWord = $("#change input[name=oldPassword]").val().trim();
     let newPassword = $("#change input[name=newPassword]").val().trim();
     let confirmPassword = $("#change input[name=confirmPWD]").val().trim();
-    let data = {userName,passWord,newPassword};
+    let data = {username:userName,password:passWord,newPassword:newPassword};
     //console.log(data)
     if(userName && passWord && newPassword && confirmPassword){
       getData("/user/change","POST",data).then(data => renderState(data));
@@ -143,13 +176,12 @@ window.onload = function (){
     let userFrame = $("#content .user-frame"),
         str = "";
     data = JSON.parse(data);
-    // console.log(data.length);
+    //console.log(data);
     if(data.status !== ""){
-      str = `<h2 style="color:red;">${data.status}</h2>
-            <h2>即将跳转</h2>`;
-      //console.log(data.status);
+      str = `<h2>${data.status}</h2>
+            <h3>即将跳转</h3>`;
       if(data.status === "用户名不存在" || data.status === "密码不正确，登录失败！" || data.status === "登录失败！"){
-        //console.log(data.status);
+        console.log(data.status);
         setTimeout(() => {
           window.location.href = "/user";
         }, 2000)
@@ -159,13 +191,24 @@ window.onload = function (){
         }, 2000)
       }
     }else{
-      str = `<h2 style="color:red;">数据错误！</h2>
-      <h2>即将跳转</h2>`;
+      let key = Object.keys(data.message);
+      //console.log(key);
+      let message = "";
+      key.forEach(item =>{
+        if(item == "username"){
+          message += "用户名必须是5到12位字符!"+"<br>"
+        }else if(item == "password"){
+          message += "密码必须是5到12位字符!"+"<br>"
+        }else if(item == "newPassword"){
+          message += "新密码必须是5到12位字符!"+"<br>"
+        }
+      })
+      str = `<h2>${message}</h2>
+      <h3>即将跳转</h3>`;
       setTimeout(() => {
-        window.location.href = "/article";
+        window.location.href = "/user";
       }, 2000)
     }
-    userFrame.html(str);
-    
+    userFrame.html(str);   
   }
 }

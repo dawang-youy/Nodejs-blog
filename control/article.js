@@ -448,6 +448,3 @@ exports.del = async ctx => {
 
   ctx.body = res
 }
-exports.test = async ctx => {
-  console.log(ctx.req.url)
-}

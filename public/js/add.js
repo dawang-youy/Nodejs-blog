@@ -48,15 +48,47 @@ window.onload = function (){
 
   //请求的封装
   function getData(url, method, data) {
-      return new Promise((res, rej) => {
-          $.ajax({
-              type: method || "GET",
-              url: url,
-              dataType: "text",
-              data: data,
-              success: data => {res(data)}
-          });
-      });
+    let $ = layui.$;
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+          let cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+            let cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+            }
+          }
+        }
+        return cookieValue;
+    }
+
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    // Setting the token on the AJAX request
+    $.ajaxSetup({
+        beforeSend: function (xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            console.log( getCookie('csrf'))
+            xhr.setRequestHeader("X-Csrf-Token", getCookie('csrf'));
+            // xhr.setRequestHeader("X-Xsrf-Token", getCookie('csrf'));
+            }
+        }
+    });
+    return new Promise((res, rej) => {
+        $.ajax({
+            type: method || "GET",
+            url: url,
+            dataType: "text",
+            data: data,
+            success: data => {res(data)}
+        });
+    });
   }
   getData("/api/user/state").then(data => renderUser(data));
   // 渲染 用户状态
@@ -105,7 +137,7 @@ window.onload = function (){
         <option value="python">python</option>
         <option value="works">works</option>
       `;
-      console.log(typeSelector.innerHTML)    
+      //console.log(typeSelector.innerHTML)    
     }else{
       data = JSON.parse(data);
       console.log(data)

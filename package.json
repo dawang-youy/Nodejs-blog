@@ -1,28 +1,33 @@
 {
-  "name": "tz44-js-blog",
-  "version": "1.0.0",
-  "description": "潭州课堂44期-项目实战《简易个人博客》",
+  "name": "nodejs-blog",
+  "version": "2.0.10",
+  "description": "项目实战《个人博客》",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dawang-youy/tz44-js-blog.git"
+    "url": "git+https://github.com/dawang-youy/nodejs-blog"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/dawang-youy/tz44-js-blog/issues"
+    "url": "https://github.com/dawang-youy/nodejs-blog"
   },
-  "homepage": "https://github.com/dawang-youy/tz44-js-blog#readme",
+  "homepage": "https://github.com/dawang-youy/nodejs-blog",
   "dependencies": {
+    "datalize": "^0.3.2",
     "koa": "^2.5.3",
-    "koa-body": "^4.0.4",
+    "koa-bodyparser": "^4.2.1",
     "koa-compress": "^3.0.0",
+    "koa-convert": "^1.2.0",
+    "koa-csrf": "^2.5.0",
+    "koa-helmet": "^4.1.0",
     "koa-logger": "^3.2.0",
     "koa-multer": "^1.0.2",
+    "koa-ratelimit": "^4.2.0",
     "koa-router": "^7.4.0",
     "koa-session": "^5.10.0",
     "koa-static": "^5.0.0",

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="dawang">
+    <meta name="keywords" content="3d城市模型">
+    <title>3d城市</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        html,body{
+            height: 100%;
+            background: #5596BC;
+            position: relative;
+            perspective: 800px;
+            overflow: hidden;
+        }
+        div,b,i{
+            position: absolute;
+            transform-style: preserve-3d;
+        }
+        #city3d{
+            left: 50%;
+            top: 50%;
+/*            margin-left: -200px;
+            margin-top: -200px;
+            width: 400px;
+            height: 400px;*/
+            background: #D0E4EF;
+            transform: rotateX(60deg) rotateZ(-120deg);
+            animation: play 50s linear infinite;
+        }
+        @keyframes play {
+            from{ transform: rotateX(60deg) rotateZ(-120deg); }
+            to{ transform: rotateX(60deg) rotateZ(240deg); }
+
+        }
+        #city3d div.a b{
+            background-image: url("/works/3dpicshow/images/images/1.png");
+        }
+        #city3d div.b b{
+            background-image: url("/works/3dpicshow/images/images/2.png");
+        }
+        #city3d div.c b{
+            background-image: url("/works/3dpicshow/images/images/3.png");
+        }
+        #city3d div.d b{
+            background-image: url("/works/3dpicshow/images/images/4.png");
+        }
+        #city3d div.e b{
+            background-image: url("/works/3dpicshow/images/images/5.png");
+        }
+        #city3d div b{  /* 6个面 是js动态创建并动态生成随机宽高 */
+            height: 100%;
+            background-color:rgba(176,208,223,0.9);
+            transform-origin: 0 0;
+            transform: rotateX(90deg);
+        }
+        #city3d div b>b{
+            background-color:rgba(128,174,197,0.9);
+            transform: rotateY(90deg);
+        }
+        #city3d div b>b>b{
+            /*left: 20px;*/
+            right: 0;
+            transform-origin: 100% 0;
+            background-color:rgba(176,208,223,0.9);
+            transform: rotateY(90deg);
+        }
+        #city3d div b>b>b>b{
+            background-color:rgba(128,174,187,0.9);
+            left: 0;
+            transform-origin: 0 0;
+            transform: rotateY(90deg);
+        }
+        #city3d div b>b>b>b>i{
+            bottom: 1px;
+            background-color:#d0e4ef;
+
+            transform-origin: 0 100%;
+            transform: rotateX(-90deg);
+        }
+    </style>
+</head>
+<body>
+<!--
+
+    <div id="city3d">
+        <div class="b" style="/*width:50px;background: red;*/height: 160px">
+            <b style="width: 30px">
+                <b style="width: 20px">
+                    <b style="width: 30px">
+                        <b style="width:20px;">
+                            <i style="width:20px;height:30px;"></i>
+                        </b>
+                    </b>
+                </b>
+            </b>
+        </div>
+    </div>
+-->
+    <script>
+        function City3d(base) {
+            this.base = base;
+            this.max = 60;
+        }
+        // 初始化
+        City3d.prototype.build = function (parent) {
+            this.buildArea(parent);
+//            this.buildEstate(50,150);
+//            this.buildEstate(150,250);
+//            this.buildEstate(200,300);
+            for ( var i=0;i<this.base;i++ ){
+                for ( var j=0;j<this.base;j++ ){
+                    this.buildEstate(i*this.max,j*this.max);
+                }
+            }
+        }
+        // 构建地皮区域
+        City3d.prototype.buildArea = function (parent) {
+            var This = this;
+            if( !this.city ){
+                this.city = document.createElement('div');
+                this.city.id = 'city3d';
+                this.city.onclick = function () {
+                    This.build(parent);
+                }
+            }else{
+                this.city.innerHTML = '';
+            }
+
+            //this.city = document.createElement('div');
+            //this.city.id = 'city3d';
+            var num = this.base*this.max;
+            this.city.style.width = this.city.style.height = num+'px';
+            this.city.style.marginLeft = this.city.style.marginTop = -num/2+'px';
+            parent.appendChild(this.city);
+        }
+        // 构建楼盘
+        City3d.prototype.buildEstate = function (l,t) {
+            var estate = document.createElement('div');
+            estate.style.height = this.getH() + 'px';
+            estate.className = this.getStyle();
+            estate.style.left = l + 'px';
+            estate.style.top = t + 'px';
+            this.city.appendChild(estate);
+
+            /*for (var i=0;i<20;i++){
+                console.log( this.getH() )
+            }*/
+
+            var w1 = this.getW();
+            var w2 = this.getW();
+
+            var b1 = document.createElement('b');
+            b1.style.width = w1+'px';
+            estate.appendChild(b1);
+
+            var b2 = document.createElement('b');
+            b2.style.width = w2+'px';
+            b1.appendChild(b2);
+
+            var b3 = document.createElement('b');
+            b3.style.width = w1+'px';
+            b2.appendChild(b3);
+
+            var b4 = document.createElement('b');
+            b4.style.width = w2+'px';
+            b3.appendChild(b4);
+
+            var i = document.createElement('i');
+            i.style.width = w2+'px';
+            i.style.height = w1+'px';
+            b4.appendChild(i);
+        }
+        City3d.prototype.styels = ['a','b','c','d','e'];
+        City3d.prototype.getStyle = function () {
+            return this.styels[Math.floor(Math.random()*5)]
+        }
+        // 宽 21-40
+        City3d.prototype.getW = function () {
+            return Math.floor(Math.random()*21)+20;
+        }
+        // 高 21~150
+        City3d.prototype.getH = function () {
+            return Math.floor(Math.random()*130)+21;
+        }
+        // 友情提示 电脑不高 就不要设置太大
+        new City3d(10).build(document.body);
+    </script>
+</body>
+</html>

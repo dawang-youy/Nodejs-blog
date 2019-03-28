@@ -67,16 +67,46 @@ window.onload = () => {
 
   //请求的封装
   function getData(url, method, data) {
-    return new Promise((res, rej) => {
-      $.ajax({
-        type: method || "GET",
-        url: url,
-        dataType: "text",
-        data: data,
-        success: data => {
-          res(data);
+    let $ = layui.$;
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+          let cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+            let cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+            }
+          }
         }
-      });
+        return cookieValue;
+    }
+
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    // Setting the token on the AJAX request
+    $.ajaxSetup({
+        beforeSend: function (xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            console.log( getCookie('csrf'))
+            xhr.setRequestHeader("X-Csrf-Token", getCookie('csrf'));
+            // xhr.setRequestHeader("X-Xsrf-Token", getCookie('csrf'));
+            }
+        }
+    });
+    return new Promise((res, rej) => {
+        $.ajax({
+            type: method || "GET",
+            url: url,
+            dataType: "text",
+            data: data,
+            success: data => {res(data)}
+        });
     });
   }
   // 渲染 用户状态
@@ -109,7 +139,7 @@ window.onload = () => {
             <a class="top" href=${
               data.role > 1 ? "/admin/user" : "/admin/userface"
             }> 个人中心</a>
-            <a class="hide" href="/user/logout"> 退出登录</a>
+            <a class="logout" href="/user/logout"> 退出登录</a>
           </li>
           <li>
             <img src=${data.avatar}>
@@ -215,7 +245,8 @@ window.onload = () => {
       } else {
         window.event.returnValue = false;
       }
-      var cip = returnCitySN["cip"];
+      var cip = parseInt(Date.now()/1000/60/60/10);
+      if(window.returnCitySN)cip = returnCitySN['cip'];
       //console.log(cip,typeof cip);
       var href = this.getAttribute("href");
       href = href.substring(14);
@@ -448,6 +479,10 @@ window.onload = () => {
       }>${v}</span>`;
     });
     tagsList.html(str);
+    let span = document.querySelectorAll("#web-tags span");
+    for(let i=0,len=span.length;i<len;i++){
+      span[i].style.backgroundColor = colorArr[Math.floor(Math.random()*(len-0.5))];
+    }
   }
 
   //渲染 用户状态

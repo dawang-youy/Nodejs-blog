@@ -11,5 +11,5 @@ const storage = multer.diskStorage({
     cb(null, `${req.headers.cookie.split("=")[1].split(";")[0]}${Date.now()}.${filename[filename.length - 1]}`)
   }
 })
-console.log(multer({storage}).single("file"))
+//console.log(multer({storage}).single("file"))
 module.exports = multer({storage})

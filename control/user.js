@@ -1,26 +1,24 @@
-const User = require('../Models/user')
-const encrypt = require('../util/encrypt')
-const fs = require('fs')
-const client = require('../util/myredis')
+const User = require('../Models/user');
+const encrypt = require('../util/encrypt');
+const fs = require('fs');
+const client = require('../util/myredis');
+
 // 注册 登录界面
 exports.user = async ctx => {
-  await new Promise((resolve, reject) => {
-    fs.readFile("views/05.html", "utf8", (err, data) => {
-        if (err) reject(err);
-        resolve(data);
-    });
-  }).then((data) => {
-      ctx.body = data;
-  }, err => console.log(err));
+    await new Promise((resolve, reject) => {
+      fs.readFile("views/05.html", "utf8", (err, data) => {
+          if (err) reject(err);
+          resolve(data);
+      });
+    }).then((data) => {
+        ctx.body = data;
+    }, err => console.log(err));
 }
 // 用户注册
 exports.reg = async ctx => {
-  //console.log("这是处理用户注册的中间件")
-  // 用户注册时 post 发过来的数据
   const user = ctx.request.body
   const username = user.username
   const password = user.password
-  // 注册时 以下操作假设 格式 符合。
   // 1、去数据库 user集合 先查询当前发过来的 username 是否存在
   await new Promise((resolve, reject) => {
     // 去 users 数据库查询
@@ -71,7 +69,6 @@ exports.reg = async ctx => {
     // })
   })
 }
-
 // 用户登录
 exports.login = async ctx => {
   // 拿到 post 数据
@@ -79,7 +76,7 @@ exports.login = async ctx => {
   const username = user.username
   const password = user.password
   const userPid = user.pid
-
+  //console.log("login",ctx.csrf,ctx.session.csrf);
   await new Promise((resolve, reject) => {
     client.get(username+userPid,async function (err,v) {
       if(err) console.log(err);
@@ -165,11 +162,11 @@ exports.login = async ctx => {
 exports.change = async ctx => {
   // 拿到 post 数据
   const user = ctx.request.body;
-  const username = user.userName;
-  const password = user.passWord;
+  const username = user.username;
+  const password = user.password;
   const newPassword = user.newPassword;
   if(!username) return ctx.body = {status:"请输入用户名！"}
-  console.log(user,username)
+  //console.log(user,username)
   if(username && !password){
     await new Promise((resolve, reject) => {
       User.find({username}, (err, data) => {
@@ -260,7 +257,18 @@ exports.keepLog = async (ctx, next) => {
       }
     }
   }
-  //console.log(ctx.session)
+  //console.log("keeplogin-before",ctx.session.secret,ctx.csrf);
+  let csrf = ctx.csrf;
+  //console.log(csrf);
+  //ctx.session.csrf = csrf;
+  ctx.cookies.set("csrf", csrf, {
+    domain: "localhost",
+    path: "/",
+    maxAge: 36e5,
+    httpOnly: false,
+    overwrite: false
+  });
+  //console.log("keeplogin-after",ctx.session.secret,ctx.csrf);
   await next()
 }
 exports.userState = async ctx => {
@@ -274,7 +282,7 @@ exports.userState = async ctx => {
         .then(data => data)
       const role = user.role,
             avatar = user.avatar;
-      data = ctx.session = {
+      data = {
           username: ctx.cookies.get('username'),
           uid,
           avatar,
@@ -291,7 +299,19 @@ exports.logout = async (ctx,next) => {
   const username = user.username
   const userPid = user.pid
   //console.log(username+userPid);
-  client.del(username+userPid);
+  // client.exists(username+userPid, function(err, reply) {
+  //   if (reply === 1) {
+  //       console.log('exists');
+  //   } else {
+  //       console.log('doesn\'t exist');
+  //   }
+  // });
+  client.expire(username+userPid,1,function(err,v){
+    console.log("expire",err,v);
+  });
+  client.del(username+userPid,function(err,v){
+    console.log("del",err,v);
+  });
   ctx.session = null
   ctx.cookies.set("username", null, {
     maxAge: 0

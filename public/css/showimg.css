@@ -139,14 +139,10 @@
     height: 100%;
 }
 #music{
-    position: absolute;
+    position: fixed;
     top: 150px;
     right: 200px;
-    /* width: 30px;
-    height:30px;
-    border:1px solid #999;
-    border-radius: 50%; */
-
+    z-index: 100;
 }
 #music.range{
     animation: range 2s linear infinite;

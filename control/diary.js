@@ -22,7 +22,7 @@ exports.getList = async ctx => {
     .then(data => data)
     .catch(err => console.log(err));
     //console.log(artList);
-  let newList,hotList,randomList,commentList,webNum,linkList,loveList;
+  let newList,hotList,randomList,commentList,webNum,loveList,visitNum,tipsNum,tagsNum,updateTime;
     newList = await Article
       .find()
       .sort('-created')
@@ -56,14 +56,21 @@ exports.getList = async ctx => {
   const userNum = await User.estimatedDocumentCount((err, num) => err? console.log(err) : num);
   const articleNum = await Article.estimatedDocumentCount((err, num) => err? console.log(err) : num);
   const commentNum = await Comment.estimatedDocumentCount((err, num) => err? console.log(err) : num);
-  const website = await Website.find().sort("-created").limit(1).then(data => data).catch(err => {console.log(err)});
-  const visitNum = website[0].visitNum;
-  const tipsNum = website[0].tips.length;
-  const tagsNum = website[0].tags.length;
-  const updateTime = new Date(Math.max(website[0].created,commentList[0].created,newList[0].created)).toLocaleString();
-  const duration = Math.floor((Date.now()-new Date(2018,11,05))/1000/3600/24)
+  const website = await Website.find().sort("-created").limit(1).then(data => data[0]).catch(err => {console.log(err)});
+  if(website){
+    visitNum = website.visitNum;
+    tipsNum = website.tips.length;
+    tagsNum = website.tags.length;
+    updateTime = new Date(Math.max(website.created,commentList[0].created,newList[0].created)).toLocaleString() || new Date();
+  }else{
+    visitNum = 0;
+    tipsNum =  0;
+    tagsNum =  0;
+    updateTime = new Date();
+  }
+  let duration = Math.floor((Date.now()-new Date(2018,11,05))/1000/3600/24);
   webNum = {userNum,articleNum,commentNum,visitNum,tipsNum,tagsNum,updateTime,duration};
-  const maxNum = artList.length;
+  let maxNum = await Article.countDocuments({type:'diary'});
   // var isClick=[];
   // // 设置过期时间 3s
   // //redis.expire('test-redis-expire', 3)

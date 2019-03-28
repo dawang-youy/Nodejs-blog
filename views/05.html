@@ -19,26 +19,19 @@
       <div class="layui-container">
         <div class="layui-row">
           <div class="layui-col-xs3">
-            <h1
-              class="grid-demo"
-              style="display:inline-block;vertical-align:middle;"
-            >
-              <span>青 &nbsp;</span> <span>丝 &nbsp;</span>
-              <span>梦 &nbsp;</span> <span>思 &nbsp;</span>
+            <h1 class="grid-demo">
+              <span>青 &nbsp;</span>
+              <span>丝 &nbsp;</span>
+              <span>梦 &nbsp;</span>
+              <span>思 &nbsp;</span>
               <span>维 &nbsp;</span>
             </h1>
-            <div
-              class="grid-demo"
-              style="display:inline-block;height:34px;border-right:1px solid #aaa;vertical-align:middle;"
-            >
+            <div class="grid-demo space">
               &nbsp;
             </div>
-            <div
-              class="grid-demo"
-              style="display:inline-block;margin-left:20px;color:#666;font-size:14px;vertical-align:middle;"
-            >
+            <div class="grid-demo p">
               <p>大王博客</p>
-              <p>专注前端开发</p>
+              <p>www.dawang.xin</p>
             </div>
           </div>
           <div class="layui-col-xs7">
@@ -48,7 +41,7 @@
               </li>
               <li class="layui-nav-item">
                 <a href="/article">web开发</a>
-                <dl class="layui-nav-child" id="type-nav">
+                <dl class="layui-nav-child">
                   <dd><a href="/index/type">前端开发</a></dd>
                   <dd><a href="/index/type">后端开发</a></dd>
                   <dd><a href="/index/type">推荐工具</a></dd>
@@ -61,10 +54,10 @@
                   <dd><a href="/works/tmall.html" target="_blank">仿静态天猫官网</a></dd>
                   <dd><a href="/works/calc.html" target="_blank">简易计算器</a></dd>
                   <dd><a href="/works/3dpicshow.html" target="_blank">3D展示</a></dd>
-                  <dd><a href="" target="_blank">网页小游戏</a></dd>
-                  <dd><a href="" target="_blank">休闲</a></dd>
-                  <dd><a href="" target="_blank">数据分析</a></dd>
-                  <dd><a href="" target="_blank">拓展</a></dd>
+                  <dd><a href="/works/mogujie" target="_blank">蘑菇街实战</a></dd>
+                  <dd><a href="/myapp/index.html" target="_blank">vue-myapp</a></dd>
+                  <dd><a href="/echarts/react-router/" target="_blank">react-router|echarts</a></dd>
+                  <dd><a href="/luckydial/luckydial.html" target="_blank">幸运转盘</a></dd>
                 </dl>
               </li>
               <li class="layui-nav-item"><a href="/find">寻觅足迹 </a></li>
@@ -72,8 +65,8 @@
               <li class="layui-nav-item"><a href="/dynamic">时间线 </a></li>
             </ul>
           </div>
-          <div class="layui-col-xs2" style="line-height:60px;">
-            <div class="grid-demo" style="font-size:14px;">
+          <div class="layui-col-xs2">
+            <div class="grid-demo">
               <a href="javascript:;" class="user">
                 <img class="avatar" src="" alt="" width="40" title="游客">
                 <span class="small ellipsis">游客</span>
@@ -106,7 +99,7 @@
       <div class="searchclose"></div>
     </div>
     <div id="content">
-      <div class="user-frame">
+      <div class="user-frame" id="info">
         <div class="layui-container">
           <div class="layui-tab">
             <ul class="layui-tab-title">
@@ -292,43 +285,26 @@
     <div class="layui-container layui-bg-black" id="blog-footer">
       <div class="layui-row">
         <div class="div">
-          <div class="grid-demo" style="text-align:center;">
+          <div class="grid-demo">
             <p>
               注：本站为个人博客，由本人设计编写，个人使用，未经许可不得用于任何商业用途。版权所有
             </p>
             <p>
               2018 Copyright © &nbsp;
-              <a class="hov" href="http://www.dawang.xin" target="_blank"
-                >www.dawang.xin &nbsp;</a
-              >
+              <a class="hov" href="http://www.dawang.xin" target="_blank">www.dawang.xin &nbsp;</a>
               <span>All Rights Reserved &nbsp;</span>
-              <a class="hov" href="http://www.miitbeian.gov.cn" target="_blank"
-                >蒙ICP备18005902号-1</a
-              >
+              <a class="hov" href="http://www.miitbeian.gov.cn" target="_blank">蒙ICP备18005902号-1</a>
             </p>
-            <div>
-              <a
-                target="_blank"
-                href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=15070202000117"
-                style="display:inline-block;height:20px;line-height:20px;text-decoration:none;vertical-align:middle;"
-              >
-                <img src="/img/bg/beian.png" style="float:left;" />
-                <p
-                  style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;"
-                >
+            <div class="info">
+              <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=15070202000117">
+                <img src="/img/bg/beian.png"/>
+                <p>
                   蒙公网安备 15070202000117号
                 </p>
               </a>
-              <span
-                style="display:inline-block;margin:0 20px;height:20px;line-height:20px;vertical-align:middle;"
-              >
+              <span>
                 电子邮箱：
-                <a
-                  class="hov"
-                  href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&amp;amp&amp;email=478572517@qq.com"
-                  target="_blank"
-                  >478572517@qq.com</a
-                >
+                <a class="hov" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&amp;amp&amp;email=478572517@qq.com" target="_blank">478572517@qq.com</a>
               </span>
             </div>
           </div>
@@ -336,7 +312,7 @@
       </div>
     </div>
     <script src="/js/register.js"></script>
-    <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+    <!-- <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script> -->
     <script src="/js/nav.js"></script>
   </body>
 </html>

@@ -1,4 +1,3 @@
-//- 后台界面重写
 doctype html
 html
   head
@@ -7,20 +6,12 @@ html
     meta(name="author", content="dawang")
     link(rel="stylesheet", href="/layui/css/layui.css")
     link(rel="stylesheet", href="/css/nav.css")
-    script(src="/layui/layui.js")
-
-    style.
-      .layui-side, .layui-body{
-        top: 60px;
-      }
-      .layui-body{
-        padding: 15px;
-      }
-      
+    link(rel="stylesheet", href="/css/admin.css")
+    script(src="/layui/layui.js") 
     block css
   body
     // 导航
-    .blog-header(style="background:#393d49;")
+    .blog-header
       .layui-container
         .layui-row
           ul.layui-nav.layui-col-xs9
@@ -70,48 +61,4 @@ html
     // 后台管理主体部分
     .layui-body
       block main
-    script(src="http://pv.sohu.com/cityjson?ie=utf-8")
-    script.
-      layui.use('element', function(){
-        var element = layui.element;
-        const $ = layui.$
-
-        $(".layui-nav-item a").each((i, v) => {
-          const a_href = $(v).prop('href')         
-          if(a_href === location.href){
-            $('li').eq(i).addClass("layui-this")
-          }
-        })
-      });
-      window.onload = function(){
-        function getData(url, method, data) {
-          let $ = layui.$;
-          return new Promise((res, rej) => {
-            $.ajax({
-              type: method || "GET",
-              url: url,
-              dataType: "text",
-              data: data,
-              success: data => {res(data)}
-            });
-          });
-        }
-        let oUserLogout = document.querySelector('.logout');
-        oUserLogout.onclick = function (e){
-          e = e || window.event;
-          (typeof e.preventDefault !== 'undefined') ? e.preventDefault() : e.returnValue = false;
-          let pid,
-              username = this.getAttribute("data-username");
-          if(returnCitySN){
-            pid = returnCitySN['cip'];
-          }else{
-            pid = username;
-          }
-          let data = {pid,username};
-          //console.log(data);
-          getData("/user/logout","POST",data).then(data => {
-            //console.log(history);
-            window.location.href = "/";
-          });
-        }
-      }
+    script(src="/js/admin.js")

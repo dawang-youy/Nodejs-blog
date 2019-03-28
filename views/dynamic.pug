@@ -1,51 +1,15 @@
 extends ./layout/layout
 block css
     link(rel="stylesheet", href="/css/index.css")
-    style.
-        body{
-            background: linear-gradient(to bottom,#fdfaf5,#f4e4dc,antiquewhite,#f4e4dc,#fdfaf5);
-        }
-        .time-line li{
-            /* overflow: hidden; */
-            margin: 30px 20px;
-            padding: 10px 40px;
-        }
-        .time-line li i{
-            font-size: 20px;
-        }
-
-        .time-line li .avatar{
-            float: left;
-            overflow: hidden;
-            width: 60px;
-            height:60px;
-            margin-right: 40px;
-            border: 4px solid #f60;
-            border-radius:50%;
-        }
-        .time-line li h4{
-            margin-left:60px;
-            margin-bottom: 0;
-            padding: 6px 0;
-            border: 1px solid #ccc;
-            background-color: #fff;
-            color: #666;
-            text-align: center;
-        }
-        .time-line li p{
-            margin-left:60px;
-            padding: 6px 10px;
-            border: 1px solid #ccc;
-            font-size: 12px;
-            text-indent: 24px;
-        }
+    link(rel="stylesheet", href="/css/dynamic.css")
 block contents
-    .blog-words(style="width:1000px;margin:10px auto;")
-        .time-line(style="margin-bottom:20px;")
+    .blog-words
+        //- h2.end-line 博客动态
+        .time-line
             ul.layui-timeline
                 li.layui-timeline-item
                     .avatar
-                        img(src=userAvatar, alt="admin",width="100%",height="100%")
+                        img(src=userAvatar, alt="admin",width="100%",height="100%",title="admin")
                     i.layui-icon.layui-timeline-axis &#xe756;
                     .layui-timeline-content.layui-text
                         h4.layui-timeline-title=new Date(timeline.created).toLocaleString()
@@ -54,70 +18,11 @@ block contents
             ul.layui-timeline
                 li.layui-timeline-item
                     .avatar
-                        img(src=userAvatar, alt="admin",width="100%",height="100%")
+                        img(src=userAvatar, alt="admin",width="100%",height="100%",title="admin")
                     i.layui-icon.layui-anim.layui-anim-rotate.layui-anim-loop.layui-timeline-axis &#xe63e;
                     .layui-timeline-content.layui-text
                         h4.layui-timeline-title 某年某月某日，总之很久之前。。。
                         p 更久前，轮子时代。各种ui组件没形成之前，页面是怎样写的？
                        
 block scripts
-    script.
-        window.onload = function (){
-            layui.use('flow', function(){
-                var flow = layui.flow;
-                var $ = layui.$;
-                //请求的封装
-                function getData(url, method, data) {
-                    return new Promise((res, rej) => {
-                        $.ajax({
-                            type: method || "GET",
-                            url: url,
-                            dataType: "text",
-                            data: data,
-                            success: data => {res(data)}
-                        });
-                    });
-                }
-                flow.load({
-                    elem: '#LAY_demo2' //流加载容器
-                    ,isAuto: true
-                    ,isLazyimg: true
-                    ,done: function(page, next){ //加载下一页
-                        //console.log(page);
-                        var maxNum = $("#LAY_demo2").data("maxnum");
-                        let timelineList = [],userAvatar="";
-                        getData("/dynamic/page?v="+(page-1)).then(data=>{
-                            data = JSON.parse(data);
-                            timelineList = data.timeline;
-                            userAvatar = data.userAvatar;
-                            //console.log(timelineList,userAvatar);
-                        })
-                        //模拟插入
-                        let n = 5;
-                        let len = Math.ceil(maxNum/n);
-                        //console.log(maxNum,len);
-                        //console.log(page,len)
-                        setTimeout(function(){
-                            var lis = [];
-                            for(var i = 0; i < n; i++){
-                                if(!timelineList[i]) break;
-                                var src = userAvatar ? userAvatar : "/avatar/admin1545287031739.jpg";
-                                lis.push(`
-                                        <div lay-src=/find/page?v=${page}></div>
-                                        <li class="layui-timeline-item">
-                                            <div class="avatar">
-                                            <img src=${src} alt="admin" width="100%" height="100%">
-                                            </div>
-                                            <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
-                                            <div class="layui-timeline-content layui-text">
-                                            <h4 class="layui-timeline-title">${new Date(timelineList[i].created).toLocaleString()}</h4>
-                                            <p> ${timelineList[i].notes} </p>
-                                            </div>
-                                        </li>`)
-                            }
-                            next(lis.join(''), page < len); //假设总页数为 6
-                        }, 500);
-                    },
-                }); 
-            });
-        };     
+    script(src="/js/dynamic.js")   

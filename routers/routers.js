@@ -10,7 +10,9 @@ const upload = require('../util/upload');
 const imgUpload = require('../util/imgupload');
 const artImgUpload = require('../util/artimgupload');
 const bannerImgUpload = require('../util/bannerimgupload');
-
+const datalize = require('datalize');
+const field = datalize.field;
+datalize.set('autoValidate', true);
 router.get("/",user.keepLog,admin.count,home.getIndex)
 //特别推荐
 router.get("/api/lovelist/", home.loveList);
@@ -23,7 +25,7 @@ router.get("/api/artlist/:id", home.artList);
 //案例作品列表
 router.get("/api/works/:id", home.worksList);
 //文章列表
-router.post("/api/artlist/:id", home.artList);
+router.post("/api/artlist/:id", user.keepLog,home.artList);
 //最近更新
 router.get("/api/newlist", home.newList);
 //热度排行
@@ -57,11 +59,45 @@ router.get("/article", user.keepLog, admin.count,article.getIndex);
 router.get("/user",user.keepLog,user.user);
 router.get("/diary",user.keepLog,admin.count,diary.getList);
 //注册用户
-router.post("/user/reg",user.reg);
-router.post("/user/login",user.login);
-router.post("/user/change",user.change);
+router.post("/user/reg", datalize([
+    field('username').required().length(7,12),
+    field('password').required().length(5,12)
+]),async(ctx,next) =>{
+    //console.log(ctx.form);
+    if(!ctx.form.isValid){
+        //console.log(ctx.form.isValid);
+        return ctx.error(400, {errors: ctx.form.errors});
+    }else{
+        await next();
+    }
+}, user.keepLog,user.reg);
+router.post("/user/login", datalize([
+    field('username').required().length(7,12),
+    field('password').required().length(5,12)
+]),async(ctx,next) =>{
+    //console.log(ctx.form);
+    if(!ctx.form.isValid){
+        //console.log(ctx.form.isValid);
+        return ctx.error(400, {errors: ctx.form.errors});
+    }else{
+        await next();
+    }
+}, user.keepLog,user.login);
+router.post("/user/change", datalize([
+    field('username').required().length(7,12),
+    field('password').required().length(5,12),
+    field('newPassword').required().length(5,12)
+]),async(ctx,next) =>{
+    //console.log(ctx.form);
+    if(!ctx.form.isValid){
+        //console.log(ctx.form.isValid);
+        return ctx.error(400, {errors: ctx.form.errors});
+    }else{
+        await next();
+    }
+}, user.keepLog,user.change);
 // 用户退出
-router.post("/user/logout",user.logout);
+router.post("/user/logout",user.keepLog,user.logout);
 // 搜索接口
 router.get("/search/:id",user.keepLog,admin.search);
 // 文章的发表页面
@@ -88,7 +124,7 @@ router.get("/api/artcomment/:id",article.relateComment)
 router.get("/index/type",admin.count,article.getIndex)
 //router.get("/article/type/:id",admin.count,article.typeList)
 // 文章点赞 接口
-router.post("/article/love",article.loveList)
+router.post("/article/love",user.keepLog,article.loveList)
 // 添加评论
 router.post("/comment",user.keepLog,comment.save)
 // 作品案例路由

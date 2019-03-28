@@ -8,21 +8,4 @@ block main
     .layui-inline.layui-word-aux
       |这里以限制 60KB 为例
 
-
-  script.
-    layui.use(["upload", "layer"], () => {
-      const $ = layui.$
-      const upload = layui.upload
-      const layer = layui.layer
-
-      //设定文件大小限制
-      upload.render({
-        elem: '#upload'
-        ,url: '/upload'
-        ,size: 60 //限制文件大小，单位 KB
-        ,done(res){
-          layer.alert(res.message)
-        }
-      });
-    })
-
+  script(src="/js/userface.js")

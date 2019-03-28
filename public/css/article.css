@@ -1,6 +1,10 @@
 body{
   background: linear-gradient(to bottom,#fdfaf5,#f4e4dc,antiquewhite,#f4e4dc,#fdfaf5);
 }
+.blog-words{
+  width:1000px;
+  margin:10px auto;
+}
 #footprint{
   position: relative;
   height:920px;
@@ -8,9 +12,13 @@ body{
   border:1px solid antiquewhite;
   background: linear-gradient(to bottom,#fdfaf5,#f4e4dc,antiquewhite,#f4e4dc,#fdfaf5);
 }
+#footprint h5{
+  color:#f60;
+  text-align:right;
+}
 #box {
   position: absolute;
-  top: 350px;
+  top: 360px;
   left: 35%;
   margin-left: -300px;
   width: 890px;
@@ -87,7 +95,7 @@ body{
 }
 canvas {
   position: absolute;
-  top: 351px;
+  top: 361px;
   left: 46%;
   margin-left: -325px;
   background: #fff;
@@ -100,6 +108,7 @@ canvas {
 /* 文章默认盒子padding */
 .default-box{
   padding: 20px;
+  background: linear-gradient(to bottom,#fdfaf5,#f4e4dc,antiquewhite,#f4e4dc,#fdfaf5);
 }
 /* 文字居中 */
 .text-center{
