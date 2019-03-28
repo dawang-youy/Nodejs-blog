@@ -8,15 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dawang-youy/nodejs-blog"
+    "url": "git+https://github.com/dawang-youy/Nodejs-blog"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/dawang-youy/nodejs-blog"
+    "url": "https://github.com/dawang-youy/Nodejs-blog"
   },
-  "homepage": "https://github.com/dawang-youy/nodejs-blog",
+  "homepage": "https://github.com/dawang-youy/Nodejs-blog",
   "dependencies": {
     "datalize": "^0.3.2",
     "koa": "^2.5.3",
